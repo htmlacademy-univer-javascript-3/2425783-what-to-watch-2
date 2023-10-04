@@ -15,7 +15,7 @@ const initialProps = {
 root.render(
   <React.StrictMode>
     <App
-      filmName={initialProps.filmName}
+      title={initialProps.filmName}
       genre={initialProps.genre}
       year={initialProps.year}
     />

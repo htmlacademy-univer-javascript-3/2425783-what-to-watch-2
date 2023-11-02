@@ -1,56 +1,52 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Logo from '../../components/header/logo/logo';
+import Breadcrumbs from '../../components/header/breadcrumbs/breadcrumbs';
+import UserBlock from '../../components/header/user-block/user-block';
+import {FilmInfo} from '../../types/films.tsx';
+import {useParams} from 'react-router-dom';
+import NotFound from '../not-found/not-found.tsx';
 
-export default function AddReview(): React.JSX.Element {
-  return (
+type AddReviewProps = {
+  filmsData: FilmInfo[];
+}
+
+type FormData = {
+  name: string;
+  value: string;
+}
+
+export default function AddReview({filmsData}: AddReviewProps): React.JSX.Element {
+
+  const paramsFilm = useParams();
+  const film = filmsData.find((item) => item.id === paramsFilm.id);
+
+  const [formData, setFormData] = useState({
+    'rating': '',
+    'review-text': '',
+  });
+  const onChangeHandler = ({name, value}: FormData) => {
+    setFormData({...formData, [name]: value});
+  };
+
+  return film ? (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
           <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
-            alt="The Grand Budapest Hotel"
+            src={film.backgroundImage}
+            alt={film.title}
           />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
-          <div className="logo">
-            <a href="main.html" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <nav className="breadcrumbs">
-            <ul className="breadcrumbs__list">
-              <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">
-                    The Grand Budapest Hotel
-                </a>
-              </li>
-              <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
-              </li>
-            </ul>
-          </nav>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width={63}
-                  height={63}
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <Logo/>
+          <Breadcrumbs id={film.id} title={film.title} />
+          <UserBlock/>
         </header>
         <div className="film-card__poster film-card__poster--small">
           <img
-            src="img/the-grand-budapest-hotel-poster.jpg"
-            alt="The Grand Budapest Hotel poster"
+            src={film.posterImage}
+            alt={`${film.title} poster`}
             width={218}
             height={327}
           />
@@ -65,7 +61,8 @@ export default function AddReview(): React.JSX.Element {
                 id="star-10"
                 type="radio"
                 name="rating"
-                defaultValue={10}
+                value={10}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-10">
                   Rating 10
@@ -75,7 +72,8 @@ export default function AddReview(): React.JSX.Element {
                 id="star-9"
                 type="radio"
                 name="rating"
-                defaultValue={9}
+                value={9}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-9">
                   Rating 9
@@ -85,8 +83,8 @@ export default function AddReview(): React.JSX.Element {
                 id="star-8"
                 type="radio"
                 name="rating"
-                defaultValue={8}
-                defaultChecked={undefined}
+                value={8}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-8">
                   Rating 8
@@ -96,7 +94,8 @@ export default function AddReview(): React.JSX.Element {
                 id="star-7"
                 type="radio"
                 name="rating"
-                defaultValue={7}
+                value={7}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-7">
                   Rating 7
@@ -106,7 +105,8 @@ export default function AddReview(): React.JSX.Element {
                 id="star-6"
                 type="radio"
                 name="rating"
-                defaultValue={6}
+                value={6}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-6">
                   Rating 6
@@ -117,6 +117,7 @@ export default function AddReview(): React.JSX.Element {
                 type="radio"
                 name="rating"
                 defaultValue={5}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-5">
                   Rating 5
@@ -126,7 +127,8 @@ export default function AddReview(): React.JSX.Element {
                 id="star-4"
                 type="radio"
                 name="rating"
-                defaultValue={4}
+                value={4}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-4">
                   Rating 4
@@ -136,7 +138,8 @@ export default function AddReview(): React.JSX.Element {
                 id="star-3"
                 type="radio"
                 name="rating"
-                defaultValue={3}
+                value={3}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-3">
                   Rating 3
@@ -146,7 +149,8 @@ export default function AddReview(): React.JSX.Element {
                 id="star-2"
                 type="radio"
                 name="rating"
-                defaultValue={2}
+                value={2}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-2">
                   Rating 2
@@ -156,7 +160,8 @@ export default function AddReview(): React.JSX.Element {
                 id="star-1"
                 type="radio"
                 name="rating"
-                defaultValue={1}
+                value={1}
+                onChange={(event) => onChangeHandler(event.target)}
               />
               <label className="rating__label" htmlFor="star-1">
                   Rating 1
@@ -180,5 +185,5 @@ export default function AddReview(): React.JSX.Element {
         </form>
       </div>
     </section>
-  );
+  ) : <NotFound/>;
 }

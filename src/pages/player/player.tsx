@@ -1,9 +1,20 @@
 import React from 'react';
+import {FilmInfo} from '../../types/films.tsx';
+import {useParams} from 'react-router-dom';
+import NotFound from '../not-found/not-found.tsx';
 
-export default function Player(): React.JSX.Element {
-  return (
+type PlayerProps = {
+  filmsData: FilmInfo[];
+}
+
+export default function Player({filmsData}: PlayerProps): React.JSX.Element {
+
+  const paramsFilm = useParams();
+  const film = filmsData.find((item) => item.id === paramsFilm.id);
+
+  return film ? (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={film.videoLink} className="player__video" poster={film.backgroundImage}></video>
       <button type="button" className="player__exit">Exit</button>
       <div className="player__controls">
         <div className="player__controls-row">
@@ -30,5 +41,5 @@ export default function Player(): React.JSX.Element {
         </div>
       </div>
     </div>
-  );
+  ) : <NotFound/>;
 }

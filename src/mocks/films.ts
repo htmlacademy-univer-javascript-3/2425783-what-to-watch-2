@@ -10,7 +10,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     year: 2014,
     posterImage: 'img/the-grand-budapest-hotel-poster.jpg',
     backgroundImage: 'img/bg-the-grand-budapest-hotel.jpg',
-    videoLink: 'https://url-to-video/video.mp4',
+    videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
     director: 'Wes Anderson',
     starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'
@@ -29,7 +29,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     year: 2014,
     posterImage: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
     backgroundImage: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
-    videoLink: 'https://url-to-video/video.mp4',
+    videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
     director: 'Wes Anderson',
     starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'
@@ -48,7 +48,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     year: 2014,
     posterImage: 'img/bohemian-rhapsody.jpg',
     backgroundImage: 'img/bohemian-rhapsody.jpg',
-    videoLink: 'https://url-to-video/video.mp4',
+    videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
     director: 'Wes Anderson',
     starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'
@@ -67,7 +67,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     year: 2014,
     posterImage: 'img/macbeth.jpg',
     backgroundImage: 'img/macbeth.jpg',
-    videoLink: 'https://url-to-video/video.mp4',
+    videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
     director: 'Wes Anderson',
     starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'
@@ -86,7 +86,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     year: 2014,
     posterImage: 'img/aviator.jpg',
     backgroundImage: 'img/aviator.jpg',
-    videoLink: 'https://url-to-video/video.mp4',
+    videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
     director: 'Wes Anderson',
     starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'
@@ -105,7 +105,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     year: 2014,
     posterImage: 'img/we-need-to-talk-about-kevin.jpg',
     backgroundImage: 'img/we-need-to-talk-about-kevin.jpg',
-    videoLink: 'https://url-to-video/video.mp4',
+    videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
     director: 'Wes Anderson',
     starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'
@@ -124,7 +124,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     year: 2014,
     posterImage: 'img/war-of-the-worlds.jpg',
     backgroundImage: 'img/war-of-the-worlds.jpg',
-    videoLink: 'https://url-to-video/video.mp4',
+    videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
     director: 'Wes Anderson',
     starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'
@@ -143,7 +143,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     year: 2014,
     posterImage: 'img/snatch.jpg',
     backgroundImage: 'img/snatch.jpg',
-    videoLink: 'https://url-to-video/video.mp4',
+    videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
     director: 'Wes Anderson',
     starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'

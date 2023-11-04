@@ -1,20 +1,21 @@
 import React from 'react';
+import {Link, useParams} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import {Link, useParams} from 'react-router-dom';
-import {FilmInfo} from '../../types/films.tsx';
+import {FilmInfo, ReviewFilm} from '../../types/films.tsx';
 import NotFound from '../not-found/not-found.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
-import {AppRoutes, FilmsRoutes} from '../../enums/routes.tsx';
+import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
 import MoviePageDetails from './movie-page-details/movie-page-details.tsx';
 import MoviePageOverview from './movie-page-overview/movie-page-overview.tsx';
 import MoviePageReviews from './movie-page-reviews/movie-page-reviews.tsx';
 
 type FilmProps = {
   filmsData: FilmInfo[];
+  reviewsFilm: ReviewFilm[];
 }
 
-export default function MoviePage({filmsData}: FilmProps): React.JSX.Element {
+export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JSX.Element {
 
   const paramsFilm = useParams();
   const film = filmsData.find((item) => item.id === paramsFilm.id);
@@ -26,7 +27,7 @@ export default function MoviePage({filmsData}: FilmProps): React.JSX.Element {
       case FilmsRoutes.details:
         return <MoviePageDetails film={film}/>;
       case FilmsRoutes.reviews:
-        return <MoviePageReviews film={film}/>;
+        return <MoviePageReviews reviewsFilm={reviewsFilm}/>;
       default:
         return <MoviePageOverview film={film}/>;
     }
@@ -108,7 +109,7 @@ export default function MoviePage({filmsData}: FilmProps): React.JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList data={filmsData.slice(4)}/>
+          <FilmList data={filmsData} genre={film.genre} maxCards={4}/>
         </section>
         <Footer></Footer>
       </div>

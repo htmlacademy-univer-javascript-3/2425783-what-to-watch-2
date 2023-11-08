@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {Provider} from "react-redux";
+import {Provider} from 'react-redux';
 import App from './components/app/app.tsx';
 import {FILM_DETAILS_MOCK} from './mocks/films.ts';
 import {GENRES_MOCK} from './mocks/genres.ts';
 import {REVIEWS_DATA} from './mocks/reviews.ts';
-import {store} from "./store";
+import {store} from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

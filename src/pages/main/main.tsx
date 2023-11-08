@@ -6,9 +6,9 @@ import Header from '../../components/header/header';
 import GenresList from '../../components/genres-list/genres-list.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
 import {AppRoutes} from '../../enums/routes.ts';
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {changeGenre, getFilmsGenre} from "../../store/action.ts";
-import {GENRES_MOCK} from "../../mocks/genres.ts";
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {changeGenre, getFilmsGenre} from '../../store/action.ts';
+import {GENRES_MOCK} from '../../mocks/genres.ts';
 
 
 export default function MainPage(): React.JSX.Element {

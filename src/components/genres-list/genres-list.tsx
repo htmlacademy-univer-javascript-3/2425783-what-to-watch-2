@@ -14,7 +14,7 @@ export default function GenresList({genresFilm, activeGenre, clickHandler}: Genr
       {genresFilm.map((genre) => (
         <li
           key={genre.id}
-          className={`catalog__genres-item ${activeGenre === genre.name ? "catalog__genres-item--active" : ''}`}
+          className={`catalog__genres-item ${activeGenre === genre.name ? 'catalog__genres-item--active' : ''}`}
           onClick={() => clickHandler(genre.name)}
         >
           <Link to="#" className="catalog__genres-link">{genre.name}</Link>

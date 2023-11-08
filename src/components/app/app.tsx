@@ -1,6 +1,6 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import MainPage from '../../pages/main/main';
-import {FilmInfo, GenresFilm, ReviewFilm} from '../../types/films.ts';
+import {FilmInfo, ReviewFilm} from '../../types/films.ts';
 import SignIn from '../../pages/sign-in/sign-in.tsx';
 import MyList from '../../pages/my-list/my-list.tsx';
 import AddReview from '../../pages/add-review/add-review.tsx';

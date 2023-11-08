@@ -9,9 +9,12 @@ import {AppRoutes} from '../../enums/routes.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeGenre, getFilmsGenre} from '../../store/action.ts';
 import {GENRES_MOCK} from '../../mocks/genres.ts';
+import ShowMoreBtn from '../../components/show-more-btn/show-more.tsx';
 
+const MAX_CARD_FILM = 8;
 
 export default function MainPage(): React.JSX.Element {
+  const [filmsCount, setFilmsCount] = useState(MAX_CARD_FILM);
 
   const dispatch = useAppDispatch();
   const films = useAppSelector((state) => state.films);
@@ -22,9 +25,17 @@ export default function MainPage(): React.JSX.Element {
   const handleFilmCardClick = (film: FilmInfo) => {
     setFilmPreview(film);
   };
+
   const handleGenreClick = (genre: string) => {
     dispatch(changeGenre({genre}));
     dispatch(getFilmsGenre({genre}));
+    setFilmsCount(MAX_CARD_FILM);
+  };
+
+  const handleBtnFilmsClick = () => {
+    if(filmsCount < films.length) {
+      setFilmsCount((prevState) => prevState + MAX_CARD_FILM);
+    }
   };
 
   return (
@@ -80,12 +91,12 @@ export default function MainPage(): React.JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList genresFilm={GENRES_MOCK} activeGenre={genreName} clickHandler={handleGenreClick}/>
-          <FilmList data={films} clickHandler={handleFilmCardClick}/>
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          <FilmList data={films} maxCards={filmsCount} clickHandler={handleFilmCardClick}/>
+          {
+            filmsCount < films.length && (
+              <ShowMoreBtn clickHandler={handleBtnFilmsClick}/>
+            )
+          }
         </section>
         <Footer></Footer>
       </div>

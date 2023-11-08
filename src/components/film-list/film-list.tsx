@@ -1,4 +1,4 @@
-import {FilmInfo} from '../../types/films.tsx';
+import {FilmInfo} from '../../types/films.ts';
 import FilmCard from '../film-card/film-card.tsx';
 
 interface FilmListProps {

@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import {FilmInfo, ReviewFilm} from '../../types/films.tsx';
+import {FilmInfo, ReviewFilm} from '../../types/films.ts';
 import NotFound from '../not-found/not-found.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
 import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';

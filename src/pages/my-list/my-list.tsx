@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../../components/footer/footer.tsx';
 import Logo from '../../components/header/logo/logo.tsx';
 import UserBlock from '../../components/header/user-block/user-block.tsx';
-import {FilmInfo} from '../../types/films.tsx';
+import {FilmInfo} from '../../types/films.ts';
 import FilmList from '../../components/film-list/film-list.tsx';
 
 type MyListProps = {

@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import Logo from '../../components/header/logo/logo';
 import Breadcrumbs from '../../components/header/breadcrumbs/breadcrumbs';
 import UserBlock from '../../components/header/user-block/user-block';
-import {FilmInfo} from '../../types/films.tsx';
+import {FilmInfo} from '../../types/films.ts';
 import NotFound from '../not-found/not-found.tsx';
 
 type AddReviewProps = {

@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {BreadcrumbsFilm} from '../../../types/films.tsx';
+import {BreadcrumbsFilm} from '../../../types/films.ts';
 import {AppRoutes} from '../../../enums/routes.ts';
 
 export default function Breadcrumbs({id, title}:BreadcrumbsFilm) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReviewFilm} from '../../../types/films.tsx';
+import {ReviewFilm} from '../../../types/films.ts';
 import ReviewsFilm from '../../../components/reviews-film/reviews-film.tsx';
 
 type ReviewsProps = {

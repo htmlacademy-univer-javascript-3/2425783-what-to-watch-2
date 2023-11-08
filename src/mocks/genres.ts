@@ -1,4 +1,4 @@
-import {GenresFilm} from '../types/films.tsx';
+import {GenresFilm} from '../types/films.ts';
 
 export const GENRES_MOCK: GenresFilm[] = [
   {

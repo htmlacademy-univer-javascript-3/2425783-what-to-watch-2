@@ -1,6 +1,6 @@
 import React from 'react';
 import NotFound from '../../not-found/not-found.tsx';
-import {FilmInfo} from '../../../types/films.tsx';
+import {FilmInfo} from '../../../types/films.ts';
 
 type OverviewProps = {
   film?: FilmInfo;

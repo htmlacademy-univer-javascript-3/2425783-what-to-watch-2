@@ -1,24 +1,30 @@
 import React, {useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
-import {FilmInfo, GenresFilm} from '../../types/films';
+import {Link} from 'react-router-dom';
+import {FilmInfo} from '../../types';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import GenresList from '../../components/genres-list/genres-list.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
 import {AppRoutes} from '../../enums/routes.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {changeGenre, getFilmsGenre} from '../../store/action.ts';
+import {GENRES_MOCK} from '../../mocks/genres.ts';
 
-interface MainProps {
-  films: FilmInfo[];
-  genresFilm: GenresFilm[];
-}
 
-export default function MainPage({films, genresFilm}: MainProps): React.JSX.Element {
-  const paramsGenre = useParams();
+export default function MainPage(): React.JSX.Element {
+
+  const dispatch = useAppDispatch();
+  const films = useAppSelector((state) => state.films);
+  const genreName = useAppSelector((state) => state.genre);
   const [firstFilm] = films;
   const [filmPreview, setFilmPreview] = useState(firstFilm);
 
   const handleFilmCardClick = (film: FilmInfo) => {
     setFilmPreview(film);
+  };
+  const handleGenreClick = (genre: string) => {
+    dispatch(changeGenre({genre}));
+    dispatch(getFilmsGenre({genre}));
   };
 
   return (
@@ -73,8 +79,8 @@ export default function MainPage({films, genresFilm}: MainProps): React.JSX.Elem
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList genresFilm={genresFilm}/>
-          <FilmList data={films} genre={paramsGenre.genre} clickHandler={handleFilmCardClick}/>
+          <GenresList genresFilm={GENRES_MOCK} activeGenre={genreName} clickHandler={handleGenreClick}/>
+          <FilmList data={films} clickHandler={handleFilmCardClick}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">
               Show more

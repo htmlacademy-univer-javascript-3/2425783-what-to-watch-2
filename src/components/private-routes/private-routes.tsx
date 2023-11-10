@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import {Navigate} from 'react-router-dom';
-import {PrivateRoute} from '../../types/routes.tsx';
+import {PrivateRoute} from '../../types/routes.ts';
 import {AppRoutes} from '../../enums/routes.ts';
 
 export default function PrivateRoutes({isAuth = true, children}: PrivateRoute): ReactElement {

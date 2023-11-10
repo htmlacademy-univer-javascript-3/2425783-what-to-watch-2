@@ -1,6 +1,6 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import MainPage from '../../pages/main/main';
-import {FilmInfo, GenresFilm, ReviewFilm} from '../../types/films.tsx';
+import {FilmInfo, ReviewFilm} from '../../types/films.ts';
 import SignIn from '../../pages/sign-in/sign-in.tsx';
 import MyList from '../../pages/my-list/my-list.tsx';
 import AddReview from '../../pages/add-review/add-review.tsx';
@@ -12,31 +12,15 @@ import {AppRoutes} from '../../enums/routes.ts';
 
 interface AppProps {
   films: FilmInfo[];
-  genresFilm: GenresFilm[];
   reviewsFilm: ReviewFilm[];
 }
 
 
-export default function App({films, genresFilm, reviewsFilm}: AppProps) {
+export default function App({films, reviewsFilm}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoutes.main}
-          element={
-            <MainPage
-              films={films}
-              genresFilm={genresFilm}
-            />
-          }
-        >
-          <Route path={AppRoutes.genre} element={
-            <MainPage
-              films={films}
-              genresFilm={genresFilm}
-            />
-          }
-          />
-        </Route>
+        <Route path={AppRoutes.main} element={<MainPage/>} />
         <Route path={AppRoutes.signIn} element={<SignIn />} />
         <Route path={AppRoutes.myList}
           element={

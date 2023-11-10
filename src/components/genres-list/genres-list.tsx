@@ -1,25 +1,23 @@
-import {Link, useParams} from 'react-router-dom';
-import {GenresFilm} from '../../types/films.tsx';
-import {AppRoutes} from '../../enums/routes.ts';
+import {Link} from 'react-router-dom';
+import {GenresFilm} from '../../types';
 
 type GenresProps = {
   genresFilm: GenresFilm[];
+  activeGenre: string;
+  clickHandler: (genre: string) => void;
 }
 
-export default function GenresList({genresFilm}: GenresProps) {
-  const paramsGenre = useParams();
-  const isGenreActive = (genre: string | undefined, genreFilm: GenresFilm): string => {
-    if (!genre && genresFilm.indexOf(genreFilm) === 0) {
-      return 'catalog__genres-item--active';
-    }
-    return genre === genreFilm.slug ? 'catalog__genres-item--active' : '';
-  };
+export default function GenresList({genresFilm, activeGenre, clickHandler}: GenresProps) {
 
   return(
     <ul className="catalog__genres-list">
       {genresFilm.map((genre) => (
-        <li key={genre.id} className={`catalog__genres-item ${isGenreActive(paramsGenre.genre, genre)}`}>
-          <Link to={AppRoutes.main + (genre.slug !== 'all' ? genre.slug : '')} className="catalog__genres-link">{genre.name}</Link>
+        <li
+          key={genre.id}
+          className={`catalog__genres-item ${activeGenre === genre.name ? 'catalog__genres-item--active' : ''}`}
+          onClick={() => clickHandler(genre.name)}
+        >
+          <Link to="#" className="catalog__genres-link">{genre.name}</Link>
         </li>
       ))}
     </ul>

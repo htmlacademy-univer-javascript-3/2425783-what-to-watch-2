@@ -1,4 +1,4 @@
-import {ReviewFilm} from '../../types/films.tsx';
+import {ReviewFilm} from '../../types/films.ts';
 
 type ReviewsProps = {
   reviewsFilm: ReviewFilm[];

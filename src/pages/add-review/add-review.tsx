@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
+import {useParams} from 'react-router-dom';
 import Logo from '../../components/header/logo/logo';
 import Breadcrumbs from '../../components/header/breadcrumbs/breadcrumbs';
 import UserBlock from '../../components/header/user-block/user-block';
 import {FilmInfo} from '../../types/films.tsx';
-import {useParams} from 'react-router-dom';
 import NotFound from '../not-found/not-found.tsx';
 
 type AddReviewProps = {

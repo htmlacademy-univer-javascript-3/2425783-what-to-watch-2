@@ -1,6 +1,6 @@
 import {ReviewFilm} from '../types/films.tsx';
 
-export const reviewsData: ReviewFilm[] = [
+export const REVIEWS_DATA: ReviewFilm[] = [
   {
     id: '0',
     text: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',

@@ -1,5 +1,5 @@
 import {Link, useNavigate} from 'react-router-dom';
-import {AppRoutes} from '../../../enums/routes.tsx';
+import {AppRoutes} from '../../../enums/routes.ts';
 
 export default function UserBlock() {
   const navigate = useNavigate();

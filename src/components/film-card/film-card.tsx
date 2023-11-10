@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {FilmInfo} from '../../types/films.tsx';
-import {AppRoutes} from '../../enums/routes.tsx';
 import VideoPlayer from '../video-player/video-player.tsx';
+import {AppRoutes} from '../../enums/routes.ts';
 
 type FilmCardProps = {
   film: FilmInfo;

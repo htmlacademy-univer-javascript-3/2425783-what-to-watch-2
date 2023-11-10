@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
+import {Link, useParams} from 'react-router-dom';
 import {FilmInfo, GenresFilm} from '../../types/films';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import GenresList from '../../components/genres-list/genres-list.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
-import {Link, useParams} from 'react-router-dom';
-import {AppRoutes} from '../../enums/routes.tsx';
+import {AppRoutes} from '../../enums/routes.ts';
 
 interface MainProps {
   films: FilmInfo[];

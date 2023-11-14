@@ -169,7 +169,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     ],
     rating: 8.9,
     scoreCount: 240,
-    runTime: 99,
+    runTime: 140,
     isFavorite: true
   },
   {
@@ -226,7 +226,7 @@ export const FILM_DETAILS_MOCK: FilmInfo[] = [
     ],
     rating: 8.9,
     scoreCount: 240,
-    runTime: 99,
+    runTime: 190,
     isFavorite: true
   },
 ];

@@ -6,10 +6,9 @@ import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
 
 type FilmCardProps = {
   film: FilmInfo;
-  clickHandler: (item: FilmInfo) => void;
 }
 
-export default function FilmCard({film, clickHandler}: FilmCardProps): React.JSX.Element {
+export default function FilmCard({film}: FilmCardProps): React.JSX.Element {
   const [video, setVideo] = useState(false);
   const [isArticleHover, setArticleHover] = useState(false);
 
@@ -37,21 +36,19 @@ export default function FilmCard({film, clickHandler}: FilmCardProps): React.JSX
 
   return (
     <article
-      key={film.id}
-      onClick={() => clickHandler(film)}
       onMouseOver={mouseOverHandler}
       onMouseOut={mouseOutHandler}
       className="small-film-card catalog__films-card"
     >
       <div className="small-film-card__image">
         {
-          video ? (<VideoPlayer videoLink={film.videoLink} posterImage={film.posterImage}></VideoPlayer>) : (<img src={film.previewImage} alt={film.title}/>)
+          video ? (<VideoPlayer videoLink={film.videoLink} posterImage={film.posterImage}/>) : (<img src={film.previewImage} alt={film.title}/>)
         }
       </div>
       {
         !video && (
           <h3 className="small-film-card__title">
-            <Link to={AppRoutes.film.replace(':id', film.id).replace(':info', FilmsRoutes.overview)} className="small-film-card__link">{film.title}</Link>
+            <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="small-film-card__link">{film.title}</Link>
           </h3>
         )
       }

@@ -7,7 +7,7 @@ export default function UserBlock() {
   return(
     <ul className="user-block">
       <li className="user-block__item">
-        <div className="user-block__avatar" onClick={() => navigate(AppRoutes.myList)}>
+        <div className="user-block__avatar" onClick={() => navigate(AppRoutes.MyList)}>
           <img
             src="img/avatar.jpg"
             alt="User avatar"
@@ -17,7 +17,7 @@ export default function UserBlock() {
         </div>
       </li>
       <li className="user-block__item">
-        <Link to={AppRoutes.main} className="user-block__link">Sign out</Link>
+        <Link to={AppRoutes.Main} className="user-block__link">Sign out</Link>
       </li>
     </ul>
   );

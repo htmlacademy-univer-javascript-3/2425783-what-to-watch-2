@@ -6,6 +6,8 @@ type ReviewsProps = {
   reviewsFilm: ReviewFilm[];
 }
 
+// const MAX_REVIEWS_CARD = 6;
+
 export default function MoviePageReviews({reviewsFilm}: ReviewsProps): React.JSX.Element {
   return (
     <div className="film-card__reviews film-card__row">

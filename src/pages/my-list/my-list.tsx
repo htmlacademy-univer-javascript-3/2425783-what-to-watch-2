@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../../components/footer/footer.tsx';
 import Logo from '../../components/header/logo/logo.tsx';
 import UserBlock from '../../components/header/user-block/user-block.tsx';
-import {FilmInfo} from '../../types/films.ts';
+import {FilmInfo} from '../../types';
 import FilmList from '../../components/film-list/film-list.tsx';
 
 type MyListProps = {
@@ -19,7 +19,7 @@ export default function MyList({filmsData}: MyListProps): React.JSX.Element {
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmList data={filmsData}/>
+        <FilmList filmsData={filmsData} maxCards={filmsData.length}/>
       </section>
       <Footer></Footer>
     </div>

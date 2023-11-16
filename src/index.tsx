@@ -2,21 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
 import App from './components/app/app.tsx';
-import {FILM_DETAILS_MOCK} from './mocks/films.ts';
-import {REVIEWS_DATA} from './mocks/reviews.ts';
 import {store} from './store';
+import {fetchFilmPromo, fetchFilmsAction} from './services/api-actions.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+store.dispatch(fetchFilmsAction());
+store.dispatch(fetchFilmPromo());
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        films={FILM_DETAILS_MOCK}
-        reviewsFilm={REVIEWS_DATA}
-      />
+      <App/>
     </Provider>
   </React.StrictMode>
 );

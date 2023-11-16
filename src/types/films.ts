@@ -23,6 +23,22 @@ export interface FilmInfo {
   isFavorite: boolean;
 }
 
+export interface FilmPreview {
+  id: string;
+  name: string;
+  genre: string;
+  previewImage: string;
+  previewVideoLink: string;
+}
+
+export interface FilmPromo extends FilmPreview {
+  posterImage: string;
+  backgroundImage: string;
+  videoLink: string;
+  released: number;
+  isFavorite: boolean;
+}
+
 export interface ReviewFilm {
   id: string;
   text: string;

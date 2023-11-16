@@ -8,17 +8,17 @@ import {AppRoutes} from '../../enums/routes.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeGenre, getFilmsGenre} from '../../store/action.ts';
 import ShowMoreBtn from '../../components/show-more-btn/show-more-btn.tsx';
-import {FILM_DETAILS_MOCK} from '../../mocks/films.ts';
 
 const MAX_CARD_FILM = 8;
 
 export default function MainPage(): React.JSX.Element {
-  const [filmsCount, setFilmsCount] = useState(MAX_CARD_FILM);
-
-  const dispatch = useAppDispatch();
-  const films = useAppSelector((state) => state.films);
-  const genreName = useAppSelector((state) => state.genre);
-  const [firstFilm] = films;
+  const
+    [filmsCount, setFilmsCount] = useState(MAX_CARD_FILM),
+    dispatch = useAppDispatch(),
+    films = useAppSelector((state) => state.films),
+    filmPromo = useAppSelector((state) => state.filmPromo),
+    sortedFilmsByGenre = useAppSelector((state) => state.sortedFilmsByGenre),
+    genreName = useAppSelector((state) => state.genre);
 
   const handleGenreClick = (genre: string) => {
     dispatch(changeGenre({genre}));
@@ -37,8 +37,8 @@ export default function MainPage(): React.JSX.Element {
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src={firstFilm.backgroundImage}
-            alt={firstFilm.title}
+            src={filmPromo.backgroundImage}
+            alt={filmPromo.name}
           />
         </div>
         <h1 className="visually-hidden">WTW</h1>
@@ -47,17 +47,17 @@ export default function MainPage(): React.JSX.Element {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src={firstFilm.posterImage}
-                alt={firstFilm.title}
+                src={filmPromo.posterImage}
+                alt={filmPromo.name}
                 width={218}
                 height={327}
               />
             </div>
             <div className="film-card__desc">
-              <h2 className="film-card__title">{firstFilm.title}</h2>
+              <h2 className="film-card__title">{filmPromo.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{firstFilm.genre}</span>
-                <span className="film-card__year">{firstFilm.year}</span>
+                <span className="film-card__genre">{filmPromo.genre}</span>
+                <span className="film-card__year">{filmPromo.released}</span>
               </p>
               <div className="film-card__buttons">
                 <button
@@ -84,10 +84,10 @@ export default function MainPage(): React.JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList genresFilm={FILM_DETAILS_MOCK} activeGenre={genreName} clickHandler={handleGenreClick}/>
-          <FilmList filmsData={films} maxCards={filmsCount}/>
+          <GenresList genresFilm={films} activeGenre={genreName} clickHandler={handleGenreClick}/>
+          <FilmList filmsData={sortedFilmsByGenre} maxCards={filmsCount}/>
           {
-            filmsCount < films.length && (
+            filmsCount < sortedFilmsByGenre.length && (
               <ShowMoreBtn clickHandler={handleBtnFilmsClick}/>
             )
           }

@@ -7,7 +7,6 @@ type DetailsProps = {
   film?: FilmInfo;
 }
 
-
 export default function MoviePageDetails({film}: DetailsProps): React.JSX.Element {
   return film ? (
     <div className="film-card__text film-card__row">

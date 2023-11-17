@@ -1,4 +1,4 @@
-import {ReviewFilm} from '../../types/films.ts';
+import {ReviewFilm} from '../../types';
 
 type ReviewsProps = {
   reviewsFilm: ReviewFilm[];

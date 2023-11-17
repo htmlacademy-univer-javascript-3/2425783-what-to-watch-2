@@ -3,8 +3,9 @@ import {useParams} from 'react-router-dom';
 import Logo from '../../components/header/logo/logo';
 import Breadcrumbs from '../../components/header/breadcrumbs/breadcrumbs';
 import UserBlock from '../../components/header/user-block/user-block';
-import {FilmInfo} from '../../types/films.ts';
+import {FilmInfo} from '../../types';
 import NotFound from '../not-found/not-found.tsx';
+import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
 
 type AddReviewProps = {
   filmsData: FilmInfo[];
@@ -22,11 +23,14 @@ export default function AddReview({filmsData}: AddReviewProps): React.JSX.Elemen
 
   const [formData, setFormData] = useState({
     'rating': '',
-    'review-text': '',
+    'reviewText': '',
   });
+
   const onChangeHandler = ({name, value}: FormData) => {
     setFormData({...formData, [name]: value});
   };
+
+  const isSubmitDisabled = () => formData.rating === '' || formData.reviewText.length < 50 || formData.reviewText.length > 400;
 
   return film ? (
     <section className="film-card film-card--full">
@@ -53,131 +57,40 @@ export default function AddReview({filmsData}: AddReviewProps): React.JSX.Elemen
         </div>
       </div>
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form action={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
-              <input
-                className="rating__input"
-                id="star-10"
-                type="radio"
-                name="rating"
-                value={10}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-10">
-                  Rating 10
-              </label>
-              <input
-                className="rating__input"
-                id="star-9"
-                type="radio"
-                name="rating"
-                value={9}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-9">
-                  Rating 9
-              </label>
-              <input
-                className="rating__input"
-                id="star-8"
-                type="radio"
-                name="rating"
-                value={8}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-8">
-                  Rating 8
-              </label>
-              <input
-                className="rating__input"
-                id="star-7"
-                type="radio"
-                name="rating"
-                value={7}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-7">
-                  Rating 7
-              </label>
-              <input
-                className="rating__input"
-                id="star-6"
-                type="radio"
-                name="rating"
-                value={6}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-6">
-                  Rating 6
-              </label>
-              <input
-                className="rating__input"
-                id="star-5"
-                type="radio"
-                name="rating"
-                defaultValue={5}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-5">
-                  Rating 5
-              </label>
-              <input
-                className="rating__input"
-                id="star-4"
-                type="radio"
-                name="rating"
-                value={4}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-4">
-                  Rating 4
-              </label>
-              <input
-                className="rating__input"
-                id="star-3"
-                type="radio"
-                name="rating"
-                value={3}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-3">
-                  Rating 3
-              </label>
-              <input
-                className="rating__input"
-                id="star-2"
-                type="radio"
-                name="rating"
-                value={2}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-2">
-                  Rating 2
-              </label>
-              <input
-                className="rating__input"
-                id="star-1"
-                type="radio"
-                name="rating"
-                value={1}
-                onChange={(event) => onChangeHandler(event.target)}
-              />
-              <label className="rating__label" htmlFor="star-1">
-                  Rating 1
-              </label>
+              {
+                Array.from({length: 10}, (_, index) => 10 - index)
+                  .map((star) => (
+                    <React.Fragment key={star}>
+                      <input
+                        className="rating__input"
+                        id={`star-${star}`}
+                        type="radio"
+                        name="rating"
+                        value={star}
+                        onChange={(event) => onChangeHandler(event.target)}
+                      />
+                      <label className="rating__label" htmlFor={`star-${star}`}>
+                        Rating {star}
+                      </label>
+                    </React.Fragment>
+                  ))
+              }
             </div>
           </div>
           <div className="add-review__text">
             <textarea
               className="add-review__textarea"
-              name="review-text"
-              id="review-text"
+              name="reviewText"
+              id="reviewText"
               placeholder="Review text"
               defaultValue={''}
+              onChange={(event) => onChangeHandler(event.target)}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">
+              <button className="add-review__btn" type="submit" disabled={isSubmitDisabled()}>
                   Post
               </button>
             </div>

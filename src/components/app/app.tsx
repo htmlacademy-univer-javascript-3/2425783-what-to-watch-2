@@ -20,19 +20,19 @@ export default function App({films, reviewsFilm}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoutes.main} element={<MainPage/>} />
-        <Route path={AppRoutes.signIn} element={<SignIn />} />
-        <Route path={AppRoutes.myList}
+        <Route path={AppRoutes.Main} element={<MainPage/>} />
+        <Route path={AppRoutes.SignIn} element={<SignIn />} />
+        <Route path={AppRoutes.MyList}
           element={
             <PrivateRoutes>
               <MyList filmsData={films}/>
             </PrivateRoutes>
           }
         />
-        <Route path={AppRoutes.film} element={<MoviePage filmsData={films} reviewsFilm={reviewsFilm}/>} />
-        <Route path={AppRoutes.addReview} element={<AddReview filmsData={films}/>}/>
-        <Route path={AppRoutes.player} element={<Player filmsData={films}/>} />
-        <Route path={AppRoutes.notFound} element={<NotFound />} />
+        <Route path={AppRoutes.Film} element={<MoviePage filmsData={films} reviewsFilm={reviewsFilm}/>} />
+        <Route path={AppRoutes.AddReview} element={<AddReview filmsData={films}/>}/>
+        <Route path={AppRoutes.Player} element={<Player filmsData={films}/>} />
+        <Route path={AppRoutes.NotFound} element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

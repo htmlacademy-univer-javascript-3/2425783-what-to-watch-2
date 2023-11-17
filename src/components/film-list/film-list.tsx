@@ -1,27 +1,31 @@
-import {FilmInfo} from '../../types/films.ts';
+import {FilmInfo} from '../../types';
 import FilmCard from '../film-card/film-card.tsx';
+import React, {useMemo} from 'react';
+import {getMoreLikeFilms} from '../../services/utils.ts';
 
-interface FilmListProps {
-  data: FilmInfo[];
+type FilmListProps = {
+  filmsData: FilmInfo[];
   genre?: string;
-  clickHandler?: (item: FilmInfo) => void;
-  maxCards?: number;
+  maxCards: number;
 }
 
-export default function FilmList({data, genre, clickHandler, maxCards}:FilmListProps) {
+const MemoizedFilmCard = React.memo(({ film }: { film: FilmInfo }) => (
+  <FilmCard
+    key={film.id}
+    film={film}
+  />
+));
+
+export default function FilmList({filmsData, genre, maxCards}:FilmListProps) {
+
   return(
     <div className="catalog__films-list">
-      {data
-        .filter((film) => genre ? film.genre.toLowerCase() === genre?.toLowerCase() : film)
-        .filter((item, index) => maxCards ? index < maxCards : item)
+      {useMemo(() => getMoreLikeFilms(filmsData, genre, maxCards), [filmsData, genre, maxCards])
         .map((film) => (
-          <FilmCard
-            key={film.id}
-            film={film}
-            clickHandler={() => clickHandler ? clickHandler(film) : ''}
-          />
+          <MemoizedFilmCard key={film.id} film={film}/>
         ))}
-
     </div>
   );
 }
+
+MemoizedFilmCard.displayName = 'MemoizedFilmCard';

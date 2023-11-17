@@ -1,16 +1,23 @@
 export enum AppRoutes {
-  main = '/',
-  signIn = '/login',
-  myList = '/mylist',
-  film = '/films/:id/:info',
-  addReview = '/films/:id/review',
-  player = '/player/:id',
-  genre = ':genre',
-  notFound = '*'
+  Main = '/',
+  SignIn = '/login',
+  MyList = '/mylist',
+  Film = '/films/:id/:info',
+  AddReview = '/films/:id/review',
+  Player = '/player/:id',
+  NotFound = '*'
 }
 
 export enum FilmsRoutes {
-  overview = 'overview',
-  details = 'details',
-  reviews = 'reviews'
+  Overview = 'overview',
+  Details = 'details',
+  Reviews = 'reviews'
+}
+
+export enum RatingFilm {
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  VeryGood = 'Very Good',
+  Awesome = 'Awesome'
 }

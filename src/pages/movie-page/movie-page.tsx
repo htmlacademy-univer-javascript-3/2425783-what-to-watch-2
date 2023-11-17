@@ -2,18 +2,21 @@ import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import {FilmInfo, ReviewFilm} from '../../types/films.ts';
+import {FilmInfo, ReviewFilm} from '../../types';
 import NotFound from '../not-found/not-found.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
 import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
 import MoviePageDetails from './movie-page-details/movie-page-details.tsx';
 import MoviePageOverview from './movie-page-overview/movie-page-overview.tsx';
 import MoviePageReviews from './movie-page-reviews/movie-page-reviews.tsx';
+import {getActiveClass} from '../../services/utils.ts';
 
 type FilmProps = {
   filmsData: FilmInfo[];
   reviewsFilm: ReviewFilm[];
 }
+
+const FILM_NAV_ITEM_ACTIVE = 'film-nav__item--active';
 
 export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JSX.Element {
 
@@ -22,11 +25,11 @@ export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JS
 
   const renderTabs = (tabName: string | undefined): JSX.Element => {
     switch(tabName) {
-      case FilmsRoutes.overview:
+      case FilmsRoutes.Overview:
         return <MoviePageOverview film={film}/> ;
-      case FilmsRoutes.details:
+      case FilmsRoutes.Details:
         return <MoviePageDetails film={film}/>;
-      case FilmsRoutes.reviews:
+      case FilmsRoutes.Reviews:
         return <MoviePageReviews reviewsFilm={reviewsFilm}/>;
       default:
         return <MoviePageOverview film={film}/>;
@@ -72,7 +75,7 @@ export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JS
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={AppRoutes.addReview.replace(':id', film.id) } className="btn film-card__button">Add review</Link>
+                <Link to={AppRoutes.AddReview.replace(':id', film.id) } className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -90,14 +93,14 @@ export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JS
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
-                  <li className={`film-nav__item ${paramsFilm.info === FilmsRoutes.overview ? 'film-nav__item--active' : ''}`}>
-                    <Link to={AppRoutes.film.replace(':id', film.id).replace(':info', FilmsRoutes.overview)} className="film-nav__link">Overview</Link>
+                  <li className={`film-nav__item ${getActiveClass(paramsFilm.info, FilmsRoutes.Overview, FILM_NAV_ITEM_ACTIVE)}`}>
+                    <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="film-nav__link">Overview</Link>
                   </li>
-                  <li className={`film-nav__item ${paramsFilm.info === FilmsRoutes.details ? 'film-nav__item--active' : ''}`}>
-                    <Link to={AppRoutes.film.replace(':id', film.id).replace(':info', FilmsRoutes.details)} className="film-nav__link">Details</Link>
+                  <li className={`film-nav__item ${getActiveClass(paramsFilm.info, FilmsRoutes.Details, FILM_NAV_ITEM_ACTIVE)}`}>
+                    <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Details)} className="film-nav__link">Details</Link>
                   </li>
-                  <li className={`film-nav__item ${paramsFilm.info === FilmsRoutes.reviews ? 'film-nav__item--active' : ''}`}>
-                    <Link to={AppRoutes.film.replace(':id', film.id).replace(':info', FilmsRoutes.reviews)} className="film-nav__link">Reviews</Link>
+                  <li className={`film-nav__item ${getActiveClass(paramsFilm.info, FilmsRoutes.Reviews, FILM_NAV_ITEM_ACTIVE)}`}>
+                    <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Reviews)} className="film-nav__link">Reviews</Link>
                   </li>
                 </ul>
               </nav>
@@ -109,7 +112,7 @@ export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JS
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList data={filmsData} genre={film.genre} maxCards={4}/>
+          <FilmList filmsData={filmsData} genre={film.genre} maxCards={4} />
         </section>
         <Footer></Footer>
       </div>

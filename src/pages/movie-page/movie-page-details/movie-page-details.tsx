@@ -1,6 +1,7 @@
 import React from 'react';
 import NotFound from '../../not-found/not-found.tsx';
 import {FilmInfo} from '../../../types/films.ts';
+import {formatFilmDuration} from '../../../services/utils.ts';
 
 type DetailsProps = {
   film?: FilmInfo;
@@ -26,10 +27,10 @@ export default function MoviePageDetails({film}: DetailsProps): React.JSX.Elemen
           <span className="film-card__details-value">
             {
               film.starring.map((item) => (
-                <>
-                  <span key={film.id}>{item}</span>
+                <React.Fragment key={item}>
+                  <span>{item}</span>
                   <br></br>
-                </>
+                </React.Fragment>
               ))
             }
           </span>
@@ -40,7 +41,7 @@ export default function MoviePageDetails({film}: DetailsProps): React.JSX.Elemen
           <strong className="film-card__details-name">
                Run Time
           </strong>
-          <span className="film-card__details-value">{`${Math.trunc(film.runTime / 60)}:${film.runTime % 60}`}</span>
+          <span className="film-card__details-value">{formatFilmDuration(film.runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

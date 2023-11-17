@@ -1,6 +1,7 @@
 import React from 'react';
 import NotFound from '../../not-found/not-found.tsx';
-import {FilmInfo} from '../../../types/films.ts';
+import {FilmInfo} from '../../../types';
+import {getRatingByFilm} from '../../../services/utils.ts';
 
 type OverviewProps = {
   film?: FilmInfo;
@@ -13,7 +14,7 @@ export default function MoviePageOverview({film}: OverviewProps): React.JSX.Elem
       <div className="film-rating">
         <div className="film-rating__score">{film.rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">Very good</span>
+          <span className="film-rating__level">{getRatingByFilm(film.rating)}</span>
           <span className="film-rating__count">{film.scoreCount} ratings</span>
         </p>
       </div>

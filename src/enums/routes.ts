@@ -21,3 +21,8 @@ export enum RatingFilm {
   VeryGood = 'Very Good',
   Awesome = 'Awesome'
 }
+
+export enum APIRoute {
+  Films = '/films',
+  FilmPromo = '/promo'
+}

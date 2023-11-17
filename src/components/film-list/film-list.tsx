@@ -1,15 +1,15 @@
-import {FilmInfo} from '../../types';
+import {FilmPreview} from '../../types';
 import FilmCard from '../film-card/film-card.tsx';
 import React, {useMemo} from 'react';
 import {getMoreLikeFilms} from '../../services/utils.ts';
 
 type FilmListProps = {
-  filmsData: FilmInfo[];
+  filmsData: FilmPreview[];
   genre?: string;
   maxCards: number;
 }
 
-const MemoizedFilmCard = React.memo(({ film }: { film: FilmInfo }) => (
+const MemoizedFilmCard = React.memo(({ film }: { film: FilmPreview }) => (
   <FilmCard
     key={film.id}
     film={film}

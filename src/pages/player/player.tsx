@@ -1,6 +1,6 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
-import {FilmInfo} from '../../types/films.ts';
+import {FilmInfo} from '../../types';
 import NotFound from '../not-found/not-found.tsx';
 
 type PlayerProps = {

@@ -1,7 +1,7 @@
-import {FilmInfo} from '../types';
+import {FilmPreview} from '../types';
 import {RatingFilm} from '../enums/routes.ts';
 
-export function computeUniqueGenres(films: FilmInfo[], ALL_GENRES: string) {
+export function computeUniqueGenres(films: FilmPreview[], ALL_GENRES: string) {
   return [ALL_GENRES, ...new Set(films.map((film) => film.genre))];
 }
 
@@ -20,7 +20,7 @@ export function getRatingByFilm(rating: number) {
   }
 }
 
-export function getMoreLikeFilms(films: FilmInfo[], genre?: string, maxCards: number = films.length) {
+export function getMoreLikeFilms(films: FilmPreview[], genre?: string, maxCards: number = films.length) {
   return films
     .filter((film) => genre ? film.genre.toLowerCase() === genre.toLowerCase() : film)
     .slice(0, maxCards);

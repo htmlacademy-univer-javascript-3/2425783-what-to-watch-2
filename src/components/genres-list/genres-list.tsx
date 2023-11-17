@@ -1,10 +1,9 @@
 import {Link} from 'react-router-dom';
-import {FilmInfo} from '../../types';
-import {useMemo} from 'react';
+import {FilmPreview} from '../../types';
 import {computeUniqueGenres, getActiveClass} from '../../services/utils.ts';
 
 type GenresProps = {
-  genresFilm: FilmInfo[];
+  genresFilm: FilmPreview[];
   activeGenre: string;
   clickHandler: (genre: string) => void;
 }
@@ -14,10 +13,9 @@ const
   GENRE_ACTIVE_CLASS = 'catalog__genres-item--active';
 
 export default function GenresList({genresFilm, activeGenre, clickHandler}: GenresProps) {
-
   return(
     <ul className="catalog__genres-list">
-      {useMemo(() => computeUniqueGenres(genresFilm, ALL_GENRES), [genresFilm])
+      {computeUniqueGenres(genresFilm, ALL_GENRES)
         .map((genre) => (
           <li
             key={genre}

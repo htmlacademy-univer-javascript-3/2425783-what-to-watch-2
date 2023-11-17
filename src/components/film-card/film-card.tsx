@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {FilmInfo} from '../../types/films.ts';
+import {FilmPreview} from '../../types';
 import VideoPlayer from '../video-player/video-player.tsx';
 import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
 
 type FilmCardProps = {
-  film: FilmInfo;
+  film: FilmPreview;
 }
 
 export default function FilmCard({film}: FilmCardProps): React.JSX.Element {
@@ -42,13 +42,13 @@ export default function FilmCard({film}: FilmCardProps): React.JSX.Element {
     >
       <div className="small-film-card__image">
         {
-          video ? (<VideoPlayer videoLink={film.videoLink} posterImage={film.posterImage}/>) : (<img src={film.previewImage} alt={film.title}/>)
+          video ? (<VideoPlayer videoLink={film.previewVideoLink} posterImage={film.previewImage}/>) : (<img src={film.previewImage} alt={film.name}/>)
         }
       </div>
       {
         !video && (
           <h3 className="small-film-card__title">
-            <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="small-film-card__link">{film.title}</Link>
+            <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="small-film-card__link">{film.name}</Link>
           </h3>
         )
       }

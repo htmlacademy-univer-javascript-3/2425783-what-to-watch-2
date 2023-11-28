@@ -13,6 +13,8 @@ import MoviePage from '../../pages/movie-page/movie-page.tsx';
 
 import {useEffect} from 'react';
 import {checkAuthAction, fetchFilmPromo, fetchFilmsAction} from '../../services/api/api-actions.ts';
+import AddReview from "../../pages/add-review/add-review.tsx";
+import ScrollToTop from "../scroll-to-top/scroll-to-top.tsx";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -30,9 +32,10 @@ export default function App() {
 
   return (
     <HistoryRoute history={browserHistory}>
+      <ScrollToTop/>
       <Routes>
         <Route path={AppRoutes.Main} element={<MainPage/>} />
-        <Route path={AppRoutes.SignIn} element={<SignIn />} />
+        <Route path={AppRoutes.SignIn} element={<SignIn/>} />
         <Route path={AppRoutes.MyList}
           element={
             <PrivateRoutes>
@@ -40,10 +43,16 @@ export default function App() {
             </PrivateRoutes>
           }
         />
-        <Route path={AppRoutes.Film} element={<MoviePage />} />
-        {/*<Route path={AppRoutes.AddReview} element={<AddReview filmsData={films}/>}/>*/}
+        <Route path={AppRoutes.Film} element={<MoviePage/>} />
+        <Route path={AppRoutes.AddReview}
+          element={
+            <PrivateRoutes>
+              <AddReview/>
+            </PrivateRoutes>
+          }
+        />
         {/*<Route path={AppRoutes.Player} element={<Player filmsData={films}/>} />*/}
-        <Route path={AppRoutes.NotFound} element={<NotFound />} />
+        <Route path={AppRoutes.NotFound} element={<NotFound/>} />
       </Routes>
     </HistoryRoute>
   );

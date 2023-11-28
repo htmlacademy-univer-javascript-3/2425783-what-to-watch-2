@@ -1,2 +1,2 @@
-export * from './useFetchFilm.ts';
+export * from './film.ts';
 export * from './store.ts';

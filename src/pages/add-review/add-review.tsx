@@ -1,32 +1,50 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Logo from '../../components/header/logo/logo';
 import Breadcrumbs from '../../components/header/breadcrumbs/breadcrumbs';
 import UserBlock from '../../components/header/user-block/user-block';
-import {FilmDetails} from '../../types';
-import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
+import {FilmsRoutes} from '../../enums/routes.ts';
 import {REVIEW_TEXT_MAX_LENGTH, REVIEW_TEXT_MIN_LENGTH} from '../../const';
-
-type AddReviewProps = {
-  filmData: FilmDetails;
-}
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import LoadingSpinner from "../../components/loading-spinner/loading-spinner.tsx";
+import {addReview} from "../../services/api/api-actions.ts";
+import {useNavigate} from "react-router-dom";
 
 type FormData = {
   name: string;
   value: string;
 }
 
-export default function AddReview({filmData}: AddReviewProps): React.JSX.Element {
-
+export default function AddReview(): React.JSX.Element {
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     'rating': '',
     'reviewText': '',
   });
+  const navigate = useNavigate();
+
+  const filmData = useAppSelector((state) => state.filmById)
+  if(!filmData) {
+    return <LoadingSpinner/>
+  }
 
   const onChangeHandler = ({name, value}: FormData) => {
     setFormData({...formData, [name]: value});
   };
 
   const isSubmitDisabled = () => formData.rating === '' || formData.reviewText.length < REVIEW_TEXT_MIN_LENGTH || formData.reviewText.length > REVIEW_TEXT_MAX_LENGTH;
+
+  const handleSubmit = useCallback(
+    (event: React.FormEvent) => {
+      event.preventDefault();
+
+      dispatch(
+        addReview({ filmId: filmData.id, rating: Number(formData.rating), comment: formData.reviewText })
+      ).then(() => {
+        navigate(`/film/${filmData.id}/${FilmsRoutes.Overview}`);
+      });
+    },
+    [dispatch, filmData.id, navigate, formData.rating, formData.reviewText]
+  );
 
   return (
     <section className="film-card film-card--full">
@@ -53,7 +71,7 @@ export default function AddReview({filmData}: AddReviewProps): React.JSX.Element
         </div>
       </div>
       <div className="add-review">
-        <form action={AppRoutes.Film.replace(':id', filmData.id).replace(':info', FilmsRoutes.Overview)} className="add-review__form">
+        <form action="#" className="add-review__form" onSubmit={handleSubmit}>
           <div className="rating">
             <div className="rating__stars">
               {

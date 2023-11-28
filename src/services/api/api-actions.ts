@@ -103,6 +103,18 @@ export const fetchSimilarFilmById = createAsyncThunk<void, string , {
   },
 );
 
+export const addReview = createAsyncThunk<void, { filmId: string; rating: number, comment: string }, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/addReview',
+  async ({filmId, comment, rating}, {dispatch, extra: api}) => {
+    await api.post(`${APIRoute.Comments}/${filmId}`, {comment, rating});
+    dispatch(fetchFavoriteFilms());
+  },
+);
+
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;

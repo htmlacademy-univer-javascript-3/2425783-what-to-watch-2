@@ -4,10 +4,10 @@ import Breadcrumbs from '../../components/header/breadcrumbs/breadcrumbs';
 import UserBlock from '../../components/header/user-block/user-block';
 import {FilmsRoutes} from '../../enums/routes.ts';
 import {REVIEW_TEXT_MAX_LENGTH, REVIEW_TEXT_MIN_LENGTH} from '../../const';
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import LoadingSpinner from "../../components/loading-spinner/loading-spinner.tsx";
-import {addReview} from "../../services/api/api-actions.ts";
-import {useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
+import {addReview} from '../../services/api/api-actions.ts';
+import {useNavigate} from 'react-router-dom';
 
 type FormData = {
   name: string;
@@ -22,9 +22,9 @@ export default function AddReview(): React.JSX.Element {
   });
   const navigate = useNavigate();
 
-  const filmData = useAppSelector((state) => state.filmById)
+  const filmData = useAppSelector((state) => state.filmById);
   if(!filmData) {
-    return <LoadingSpinner/>
+    return <LoadingSpinner/>;
   }
 
   const onChangeHandler = ({name, value}: FormData) => {

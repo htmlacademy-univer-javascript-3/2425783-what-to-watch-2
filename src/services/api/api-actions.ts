@@ -103,7 +103,7 @@ export const fetchSimilarFilmById = createAsyncThunk<void, string , {
   },
 );
 
-export const addReview = createAsyncThunk<void, { filmId: string; rating: number, comment: string }, {
+export const addReview = createAsyncThunk<void, { filmId: string; rating: number; comment: string }, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

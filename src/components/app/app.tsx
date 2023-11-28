@@ -13,8 +13,8 @@ import MoviePage from '../../pages/movie-page/movie-page.tsx';
 
 import {useEffect} from 'react';
 import {checkAuthAction, fetchFilmPromo, fetchFilmsAction} from '../../services/api/api-actions.ts';
-import AddReview from "../../pages/add-review/add-review.tsx";
-import ScrollToTop from "../scroll-to-top/scroll-to-top.tsx";
+import AddReview from '../../pages/add-review/add-review.tsx';
+import ScrollToTop from '../scroll-to-top/scroll-to-top.tsx';
 
 export default function App() {
   const dispatch = useAppDispatch();

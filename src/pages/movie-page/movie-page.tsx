@@ -4,14 +4,13 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import NotFound from '../not-found/not-found.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
-import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
+import {AppRoutes, AuthorizationStatus, FilmsRoutes} from '../../enums/routes.ts';
 import MoviePageDetails from './movie-page-details/movie-page-details.tsx';
 import MoviePageOverview from './movie-page-overview/movie-page-overview.tsx';
 import MoviePageReviews from './movie-page-reviews/movie-page-reviews.tsx';
 import {getActiveClass} from '../../services/utils.ts';
-import {useAppSelector} from '../../hooks';
+import {useAppSelector, useFetchFilm} from '../../hooks';
 import {FILM_NAV_ITEM_ACTIVE} from '../../const';
-import {useFetchFilm} from '../../hooks';
 import BtnMyList from '../../components/btn-my-list/btn-my-list.tsx';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
 
@@ -25,7 +24,8 @@ export default function MoviePage(): React.JSX.Element {
     film = useAppSelector((state) => state.filmById),
     comments = useAppSelector((state) => state.commentsFilmById),
     favoriteFilms = useAppSelector((state) => state.favoriteFilms),
-    similarFilms = useAppSelector((state) => state.similarFilmById);
+    similarFilms = useAppSelector((state) => state.similarFilmById),
+    isAuth = useAppSelector((state) => state.authorizationStatus);
 
   if(!film) {
     return <LoadingSpinner/>;
@@ -65,7 +65,11 @@ export default function MoviePage(): React.JSX.Element {
               </p>
               <div className="film-card__buttons">
                 <BtnMyList filmId={film.id} amountFilms={favoriteFilms.length} isFavorite={film.isFavorite}/>
-                <Link to={AppRoutes.AddReview.replace(':id', film.id) } className="btn film-card__button">Add review</Link>
+                {
+                  isAuth === AuthorizationStatus.Auth ? (
+                    <Link to={AppRoutes.AddReview.replace(':id', film.id) } className="btn film-card__button">Add review</Link>
+                  ) : null
+                }
               </div>
             </div>
           </div>

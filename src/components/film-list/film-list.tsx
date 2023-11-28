@@ -1,6 +1,6 @@
 import {FilmPreview} from '../../types';
-import FilmCard from '../film-card/film-card.tsx';
-import React, {useMemo} from 'react';
+import {FilmCard} from '../film-card/film-card.tsx';
+import {useMemo} from 'react';
 import {getMoreLikeFilms} from '../../services/utils.ts';
 
 type FilmListProps = {
@@ -9,23 +9,14 @@ type FilmListProps = {
   maxCards: number;
 }
 
-const MemoizedFilmCard = React.memo(({ film }: { film: FilmPreview }) => (
-  <FilmCard
-    key={film.id}
-    film={film}
-  />
-));
-
 export default function FilmList({filmsData, genre, maxCards}:FilmListProps) {
+  const memoizedMoreLikeFilms = useMemo(() => getMoreLikeFilms(filmsData, genre, maxCards), [filmsData, genre, maxCards]);
 
   return(
     <div className="catalog__films-list">
-      {useMemo(() => getMoreLikeFilms(filmsData, genre, maxCards), [filmsData, genre, maxCards])
-        .map((film) => (
-          <MemoizedFilmCard key={film.id} film={film}/>
-        ))}
+      {memoizedMoreLikeFilms.map((film) => (
+        <FilmCard key={film.id} film={film}/>
+      ))}
     </div>
   );
 }
-
-MemoizedFilmCard.displayName = 'MemoizedFilmCard';

@@ -1,10 +1,10 @@
 import React from 'react';
 import NotFound from '../../not-found/not-found.tsx';
-import {FilmInfo} from '../../../types/films.ts';
+import {FilmDetails} from '../../../types';
 import {formatFilmDuration} from '../../../services/utils.ts';
 
 type DetailsProps = {
-  film?: FilmInfo;
+  film: FilmDetails;
 }
 
 export default function MoviePageDetails({film}: DetailsProps): React.JSX.Element {
@@ -50,7 +50,7 @@ export default function MoviePageDetails({film}: DetailsProps): React.JSX.Elemen
           <strong className="film-card__details-name">
                Released
           </strong>
-          <span className="film-card__details-value">{film.year}</span>
+          <span className="film-card__details-value">{film.released}</span>
         </p>
       </div>
     </div>

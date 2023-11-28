@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {useParams} from 'react-router-dom';
 import Logo from '../../components/header/logo/logo';
 import Breadcrumbs from '../../components/header/breadcrumbs/breadcrumbs';
 import UserBlock from '../../components/header/user-block/user-block';
-import {FilmInfo} from '../../types';
-import NotFound from '../not-found/not-found.tsx';
+import {FilmDetails} from '../../types';
 import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
+import {REVIEW_TEXT_MAX_LENGTH, REVIEW_TEXT_MIN_LENGTH} from '../../const';
 
 type AddReviewProps = {
-  filmsData: FilmInfo[];
+  filmData: FilmDetails;
 }
 
 type FormData = {
@@ -16,10 +15,7 @@ type FormData = {
   value: string;
 }
 
-export default function AddReview({filmsData}: AddReviewProps): React.JSX.Element {
-
-  const paramsFilm = useParams();
-  const film = filmsData.find((item) => item.id === paramsFilm.id);
+export default function AddReview({filmData}: AddReviewProps): React.JSX.Element {
 
   const [formData, setFormData] = useState({
     'rating': '',
@@ -30,34 +26,34 @@ export default function AddReview({filmsData}: AddReviewProps): React.JSX.Elemen
     setFormData({...formData, [name]: value});
   };
 
-  const isSubmitDisabled = () => formData.rating === '' || formData.reviewText.length < 50 || formData.reviewText.length > 400;
+  const isSubmitDisabled = () => formData.rating === '' || formData.reviewText.length < REVIEW_TEXT_MIN_LENGTH || formData.reviewText.length > REVIEW_TEXT_MAX_LENGTH;
 
-  return film ? (
+  return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
           <img
-            src={film.backgroundImage}
-            alt={film.title}
+            src={filmData.backgroundImage}
+            alt={filmData.name}
           />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
           <Logo/>
-          <Breadcrumbs id={film.id} title={film.title} />
+          <Breadcrumbs id={filmData.id} title={filmData.name} />
           <UserBlock/>
         </header>
         <div className="film-card__poster film-card__poster--small">
           <img
-            src={film.posterImage}
-            alt={`${film.title} poster`}
+            src={filmData.posterImage}
+            alt={`${filmData.name} poster`}
             width={218}
             height={327}
           />
         </div>
       </div>
       <div className="add-review">
-        <form action={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="add-review__form">
+        <form action={AppRoutes.Film.replace(':id', filmData.id).replace(':info', FilmsRoutes.Overview)} className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
               {
@@ -98,5 +94,5 @@ export default function AddReview({filmsData}: AddReviewProps): React.JSX.Elemen
         </form>
       </div>
     </section>
-  ) : <NotFound/>;
+  );
 }

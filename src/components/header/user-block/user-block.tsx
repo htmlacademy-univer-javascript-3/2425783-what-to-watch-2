@@ -1,24 +1,51 @@
-import {Link, useNavigate} from 'react-router-dom';
-import {AppRoutes} from '../../../enums/routes.ts';
+import {Link} from 'react-router-dom';
+import {AppRoutes, AuthorizationStatus} from '../../../enums/routes.ts';
+import {fetchFavoriteFilms, logoutAction} from '../../../services/api/api-actions.ts';
+import {useAppDispatch, useAppSelector} from '../../../hooks';
+import {store} from '../../../store';
+import {redirectToRoute} from '../../../store/action.ts';
 
 export default function UserBlock() {
-  const navigate = useNavigate();
+  const
+    dispatch = useAppDispatch(),
+    authorizationStatus = useAppSelector((state) => state.authorizationStatus),
+    userData = useAppSelector((state) => state.userData);
+
+  const handleClick = () => {
+    store.dispatch(fetchFavoriteFilms());
+    dispatch(redirectToRoute(AppRoutes.MyList));
+  };
 
   return(
     <ul className="user-block">
-      <li className="user-block__item">
-        <div className="user-block__avatar" onClick={() => navigate(AppRoutes.MyList)}>
-          <img
-            src="img/avatar.jpg"
-            alt="User avatar"
-            width={63}
-            height={63}
-          />
-        </div>
-      </li>
-      <li className="user-block__item">
-        <Link to={AppRoutes.Main} className="user-block__link">Sign out</Link>
-      </li>
+      {
+        authorizationStatus === AuthorizationStatus.Auth ? (
+          <>
+            <li className="user-block__item">
+              <div className="user-block__avatar" onClick={handleClick}>
+                <img
+                  src={userData.avatarUrl}
+                  alt="User avatar"
+                  width={63}
+                  height={63}
+                />
+              </div>
+            </li>
+            <li className="user-block__item">
+              <Link to={AppRoutes.Main} className="user-block__link" onClick={(evt) => {
+                evt.preventDefault();
+                dispatch(logoutAction());
+              }}
+              >Sign Out
+              </Link>
+            </li>
+          </>
+        ) : (
+          <li className="user-block__item">
+            <Link to={AppRoutes.SignIn} className="user-block__link">Sign In</Link>
+          </li>
+        )
+      }
     </ul>
   );
 }

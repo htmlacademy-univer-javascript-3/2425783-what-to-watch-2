@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import Footer from '../../components/footer/footer.tsx';
 import Logo from '../../components/header/logo/logo.tsx';
 
-
 export default function NotFound(): React.JSX.Element {
   return (
     <div className="user-page" style={{justifyContent: 'space-between'}}>

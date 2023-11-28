@@ -2,7 +2,6 @@ import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import {FilmInfo, ReviewFilm} from '../../types';
 import NotFound from '../not-found/not-found.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
 import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
@@ -10,18 +9,27 @@ import MoviePageDetails from './movie-page-details/movie-page-details.tsx';
 import MoviePageOverview from './movie-page-overview/movie-page-overview.tsx';
 import MoviePageReviews from './movie-page-reviews/movie-page-reviews.tsx';
 import {getActiveClass} from '../../services/utils.ts';
+import {useAppSelector} from '../../hooks';
+import {FILM_NAV_ITEM_ACTIVE} from '../../const';
+import {useFetchFilm} from '../../hooks';
+import BtnMyList from '../../components/btn-my-list/btn-my-list.tsx';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
 
-type FilmProps = {
-  filmsData: FilmInfo[];
-  reviewsFilm: ReviewFilm[];
-}
+export default function MoviePage(): React.JSX.Element {
+  const {id = ''} = useParams();
 
-const FILM_NAV_ITEM_ACTIVE = 'film-nav__item--active';
-
-export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JSX.Element {
-
+  useFetchFilm(id);
   const paramsFilm = useParams();
-  const film = filmsData.find((item) => item.id === paramsFilm.id);
+
+  const
+    film = useAppSelector((state) => state.filmById),
+    comments = useAppSelector((state) => state.commentsFilmById),
+    favoriteFilms = useAppSelector((state) => state.favoriteFilms),
+    similarFilms = useAppSelector((state) => state.similarFilmById);
+
+  if(!film) {
+    return <LoadingSpinner/>;
+  }
 
   const renderTabs = (tabName: string | undefined): JSX.Element => {
     switch(tabName) {
@@ -30,7 +38,7 @@ export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JS
       case FilmsRoutes.Details:
         return <MoviePageDetails film={film}/>;
       case FilmsRoutes.Reviews:
-        return <MoviePageReviews reviewsFilm={reviewsFilm}/>;
+        return <MoviePageReviews reviewsFilm={comments}/>;
       default:
         return <MoviePageOverview film={film}/>;
     }
@@ -38,43 +46,25 @@ export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JS
 
   return film ? (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
-              src={film.previewImage}
-              alt={film.title}
+              src={film.backgroundImage}
+              alt={film.name}
             />
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <Header/>
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.title}</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.year}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
               <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 19" width={19} height={19}>
-                    <use xlinkHref="#play-s" />
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <BtnMyList filmId={film.id} amountFilms={favoriteFilms.length} isFavorite={film.isFavorite}/>
                 <Link to={AppRoutes.AddReview.replace(':id', film.id) } className="btn film-card__button">Add review</Link>
               </div>
             </div>
@@ -85,7 +75,7 @@ export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JS
             <div className="film-card__poster film-card__poster--big">
               <img
                 src={film.posterImage}
-                alt={film.title}
+                alt={film.name}
                 width={218}
                 height={327}
               />
@@ -112,7 +102,7 @@ export default function MoviePage({filmsData, reviewsFilm}: FilmProps): React.JS
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList filmsData={filmsData} genre={film.genre} maxCards={4} />
+          <FilmList filmsData={similarFilms} maxCards={4} />
         </section>
         <Footer></Footer>
       </div>

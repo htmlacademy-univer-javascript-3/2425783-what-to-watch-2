@@ -1,10 +1,13 @@
 import { ReactElement } from 'react';
 import {Navigate} from 'react-router-dom';
-import {PrivateRoute} from '../../types/routes.ts';
-import {AppRoutes} from '../../enums/routes.ts';
+import {AppRoutes, AuthorizationStatus} from '../../enums/routes.ts';
+import {useAppSelector} from '../../hooks';
 
-export default function PrivateRoutes({isAuth = true, children}: PrivateRoute): ReactElement {
-  return(
-    isAuth ? children : <Navigate to={AppRoutes.SignIn}/>
-  );
+export interface PrivateRoute {
+  children: ReactElement;
+}
+
+export default function PrivateRoutes({children}: PrivateRoute): ReactElement {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  return authorizationStatus === AuthorizationStatus.NoAuth ? <Navigate to={AppRoutes.SignIn}/> : children;
 }

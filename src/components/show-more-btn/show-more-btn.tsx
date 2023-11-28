@@ -1,10 +1,10 @@
 type ShowMoreBtnProps = {
-  clickHandler: () => void;
+  handleBtnClick: () => void;
 }
-export default function ShowMoreBtn({clickHandler}: ShowMoreBtnProps) {
+export default function ShowMoreBtn({handleBtnClick}: ShowMoreBtnProps) {
   return(
     <div className="catalog__more">
-      <button className="catalog__button" type="button" onClick={clickHandler}>
+      <button className="catalog__button" type="button" onClick={handleBtnClick}>
           Show more
       </button>
     </div>

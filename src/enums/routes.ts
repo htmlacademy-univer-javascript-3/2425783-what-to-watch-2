@@ -2,7 +2,7 @@ export enum AppRoutes {
   Main = '/',
   SignIn = '/login',
   MyList = '/mylist',
-  Film = '/films/:id/:info',
+  Film = '/film/:id/:info',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
   NotFound = '*'
@@ -24,5 +24,16 @@ export enum RatingFilm {
 
 export enum APIRoute {
   Films = '/films',
-  FilmPromo = '/promo'
+  FilmPromo = '/promo',
+  FilmFavorite = '/favorite',
+  Comments = '/comments',
+  Similar = '/similar',
+  Login = '/login',
+  Logout = '/logout'
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }

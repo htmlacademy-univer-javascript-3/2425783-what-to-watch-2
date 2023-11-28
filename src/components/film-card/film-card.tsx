@@ -3,12 +3,14 @@ import {Link} from 'react-router-dom';
 import {FilmPreview} from '../../types';
 import VideoPlayer from '../video-player/video-player.tsx';
 import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
+import {fetchFilmById, fetchCommentsFilmById, fetchSimilarFilmById} from '../../services/api/api-actions.ts';
+import {store} from '../../store';
 
 type FilmCardProps = {
   film: FilmPreview;
 }
 
-export default function FilmCard({film}: FilmCardProps): React.JSX.Element {
+const FilmCardComponent = ({film}: FilmCardProps): React.JSX.Element => {
   const [video, setVideo] = useState(false);
   const [isArticleHover, setArticleHover] = useState(false);
 
@@ -34,6 +36,12 @@ export default function FilmCard({film}: FilmCardProps): React.JSX.Element {
     };
   }, [isArticleHover]);
 
+  const handleClick = () => {
+    store.dispatch(fetchFilmById(film.id));
+    store.dispatch(fetchCommentsFilmById(film.id));
+    store.dispatch(fetchSimilarFilmById(film.id));
+  };
+
   return (
     <article
       onMouseOver={mouseOverHandler}
@@ -48,10 +56,12 @@ export default function FilmCard({film}: FilmCardProps): React.JSX.Element {
       {
         !video && (
           <h3 className="small-film-card__title">
-            <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="small-film-card__link">{film.name}</Link>
+            <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="small-film-card__link" onClick={handleClick}>{film.name}</Link>
           </h3>
         )
       }
     </article>
   );
-}
+};
+
+export const FilmCard = React.memo(FilmCardComponent);

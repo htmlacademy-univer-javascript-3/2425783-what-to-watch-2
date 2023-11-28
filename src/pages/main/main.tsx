@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import GenresList from '../../components/genres-list/genres-list.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
-import {AppRoutes} from '../../enums/routes.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeGenre, getFilmsGenre} from '../../store/action.ts';
 import ShowMoreBtn from '../../components/show-more-btn/show-more-btn.tsx';
-
-const MAX_CARD_FILM = 8;
+import {MAX_CARD_FILM} from '../../const';
+import BtnMyList from '../../components/btn-my-list/btn-my-list.tsx';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
 
 export default function MainPage(): React.JSX.Element {
   const
@@ -18,7 +17,8 @@ export default function MainPage(): React.JSX.Element {
     films = useAppSelector((state) => state.films),
     filmPromo = useAppSelector((state) => state.filmPromo),
     sortedFilmsByGenre = useAppSelector((state) => state.sortedFilmsByGenre),
-    genreName = useAppSelector((state) => state.genre);
+    genreName = useAppSelector((state) => state.genre),
+    favoriteFilms = useAppSelector((state) => state.favoriteFilms);
 
   const handleGenreClick = (genre: string) => {
     dispatch(changeGenre({genre}));
@@ -31,6 +31,10 @@ export default function MainPage(): React.JSX.Element {
       setFilmsCount((prevState) => prevState + MAX_CARD_FILM);
     }
   };
+
+  if(!filmPromo) {
+    return <LoadingSpinner/>;
+  }
 
   return (
     <>
@@ -69,13 +73,7 @@ export default function MainPage(): React.JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <Link to={AppRoutes.MyList} className="btn btn--list film-card__button">
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </Link>
+                <BtnMyList filmId={filmPromo.id} isFavorite={filmPromo.isFavorite} amountFilms={favoriteFilms.length}/>
               </div>
             </div>
           </div>
@@ -88,7 +86,7 @@ export default function MainPage(): React.JSX.Element {
           <FilmList filmsData={sortedFilmsByGenre} maxCards={filmsCount}/>
           {
             filmsCount < sortedFilmsByGenre.length && (
-              <ShowMoreBtn clickHandler={handleBtnFilmsClick}/>
+              <ShowMoreBtn handleBtnClick={handleBtnFilmsClick}/>
             )
           }
         </section>

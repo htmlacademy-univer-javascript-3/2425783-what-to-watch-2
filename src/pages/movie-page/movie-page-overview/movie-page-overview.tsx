@@ -1,10 +1,10 @@
 import React from 'react';
 import NotFound from '../../not-found/not-found.tsx';
-import {FilmInfo} from '../../../types';
+import {FilmDetails} from '../../../types';
 import {getRatingByFilm} from '../../../services/utils.ts';
 
 type OverviewProps = {
-  film?: FilmInfo;
+  film: FilmDetails;
 }
 
 export default function MoviePageOverview({film}: OverviewProps): React.JSX.Element {
@@ -30,7 +30,7 @@ export default function MoviePageOverview({film}: OverviewProps): React.JSX.Elem
           <strong>
             Starring:&nbsp;
           </strong>
-          <span className="film-card__text">{film.starring.join(', ')}</span>
+          <span className="film-card__text">{film.starring?.join(', ')}</span>
         </p>
       </div>
     </>

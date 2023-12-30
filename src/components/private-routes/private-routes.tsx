@@ -8,6 +8,6 @@ export interface PrivateRoute {
 }
 
 export default function PrivateRoutes({children}: PrivateRoute): ReactElement {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.USER.authorizationStatus);
   return authorizationStatus === AuthorizationStatus.NoAuth ? <Navigate to={AppRoutes.SignIn}/> : children;
 }

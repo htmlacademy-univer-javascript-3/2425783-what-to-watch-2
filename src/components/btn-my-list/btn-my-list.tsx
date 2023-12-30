@@ -13,7 +13,7 @@ export default function BtnMyList({filmId, isFavorite, amountFilms}:BtnMyListPro
 
   const
     dispatch = useAppDispatch(),
-    authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+    authorizationStatus = useAppSelector((state) => state.USER.authorizationStatus);
 
   const handleBtnFavFilm = () => {
     if(authorizationStatus === AuthorizationStatus.Auth) {

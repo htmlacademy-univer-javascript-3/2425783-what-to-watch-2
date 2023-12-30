@@ -1,6 +1,6 @@
 import { store } from '../../store';
-import { setError } from '../../store/action.ts';
 import {clearErrorAction} from '../api/api-actions.ts';
+import {setError} from '../../store/user/user-selectors.ts';
 
 export const processErrorHandle = (message: string): void => {
   store.dispatch(setError(message));

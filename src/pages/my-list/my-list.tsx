@@ -6,7 +6,8 @@ import FilmList from '../../components/film-list/film-list.tsx';
 import {useAppSelector} from '../../hooks';
 
 export default function MyList(): React.JSX.Element {
-  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
+  const favoriteFilms = useAppSelector((state) => state.FILMS.favoriteFilms);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">

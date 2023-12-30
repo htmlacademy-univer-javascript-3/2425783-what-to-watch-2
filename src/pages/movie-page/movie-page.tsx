@@ -20,12 +20,11 @@ export default function MoviePage(): React.JSX.Element {
   useFetchFilm(id);
   const paramsFilm = useParams();
 
-  const
-    film = useAppSelector((state) => state.filmById),
-    comments = useAppSelector((state) => state.commentsFilmById),
-    favoriteFilms = useAppSelector((state) => state.favoriteFilms),
-    similarFilms = useAppSelector((state) => state.similarFilmById),
-    isAuth = useAppSelector((state) => state.authorizationStatus);
+  const film = useAppSelector((state) => state.FILM.filmById);
+  const comments = useAppSelector((state) => state.FILMS.commentsFilmById);
+  const favoriteFilms = useAppSelector((state) => state.FILMS.favoriteFilms);
+  const similarFilms = useAppSelector((state) => state.FILMS.similarFilmById);
+  const isAuth = useAppSelector((state) => state.USER.authorizationStatus);
 
   if(!film) {
     return <LoadingSpinner/>;

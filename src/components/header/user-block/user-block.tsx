@@ -6,10 +6,9 @@ import {store} from '../../../store';
 import {redirectToRoute} from '../../../store/action.ts';
 
 export default function UserBlock() {
-  const
-    dispatch = useAppDispatch(),
-    authorizationStatus = useAppSelector((state) => state.authorizationStatus),
-    userData = useAppSelector((state) => state.userData);
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.USER.authorizationStatus);
+  const userData = useAppSelector((state) => state.USER.userData);
 
   const handleClick = () => {
     store.dispatch(fetchFavoriteFilms());
@@ -24,7 +23,7 @@ export default function UserBlock() {
             <li className="user-block__item">
               <div className="user-block__avatar" onClick={handleClick}>
                 <img
-                  src={userData.avatarUrl}
+                  src={userData?.avatarUrl}
                   alt="User avatar"
                   width={63}
                   height={63}

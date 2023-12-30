@@ -4,21 +4,21 @@ import Header from '../../components/header/header';
 import GenresList from '../../components/genres-list/genres-list.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeGenre, getFilmsGenre} from '../../store/action.ts';
+import {changeGenre, getFilmsGenre} from '../../store/films/films-selectors.ts';
 import ShowMoreBtn from '../../components/show-more-btn/show-more-btn.tsx';
 import {MAX_CARD_FILM} from '../../const';
-import BtnMyList from '../../components/btn-my-list/btn-my-list.tsx';
+
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
+import BtnMyList from '../../components/btn-my-list/btn-my-list.tsx';
 
 export default function MainPage(): React.JSX.Element {
-  const
-    [filmsCount, setFilmsCount] = useState(MAX_CARD_FILM),
-    dispatch = useAppDispatch(),
-    films = useAppSelector((state) => state.films),
-    filmPromo = useAppSelector((state) => state.filmPromo),
-    sortedFilmsByGenre = useAppSelector((state) => state.sortedFilmsByGenre),
-    genreName = useAppSelector((state) => state.genre),
-    favoriteFilms = useAppSelector((state) => state.favoriteFilms);
+  const [filmsCount, setFilmsCount] = useState(MAX_CARD_FILM);
+  const dispatch = useAppDispatch();
+  const films = useAppSelector((state) => state.FILMS.films);
+  const filmPromo = useAppSelector((state) => state.FILM.filmPromo);
+  const sortedFilmsByGenre = useAppSelector((state) => state.FILMS.sortedFilmsByGenre);
+  const genreName = useAppSelector((state) => state.FILMS.genre);
+  const favoriteFilms = useAppSelector((state) => state.FILMS.favoriteFilms);
 
   const handleGenreClick = (genre: string) => {
     dispatch(changeGenre({genre}));

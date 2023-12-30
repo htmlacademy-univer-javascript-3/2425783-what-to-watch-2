@@ -24,7 +24,7 @@ export default function App() {
     dispatch(fetchFilmPromo());
   }, [dispatch]);
 
-  const isLoadFilms = useAppSelector((state) => state.isLoadFilms);
+  const isLoadFilms = useAppSelector((state) => state.FILMS.isLoadFilms);
 
   if(!isLoadFilms) {
     return (<LoadingSpinner/>);

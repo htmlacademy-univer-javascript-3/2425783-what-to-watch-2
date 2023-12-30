@@ -3,20 +3,19 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../../types';
 import {FilmDetails, FilmPreview, FilmPromo, ReviewFilm} from '../../types';
 import {APIRoute, AppRoutes, AuthorizationStatus} from '../../enums/routes.ts';
-import {
-  getCommentsFilmById,
-  getFavoriteFilms, getFilmById,
-  isLoadFilms,
-  getFilmPromo,
-  getFilms,
-  redirectToRoute,
-  requireAuthorization,
-  setError,
-  setUserData, getSimilarFilmById
-} from '../../store/action.ts';
 import {AuthData, UserData} from '../../types';
 import {dropToken, saveToken} from './token.ts';
 import {store} from '../../store';
+import {
+  getCommentsFilmById,
+  getFavoriteFilms,
+  getFilms,
+  getSimilarFilmById,
+  isLoadFilms
+} from '../../store/films/films-selectors.ts';
+import {getFilmById, getFilmPromo} from '../../store/film/film-selectors.ts';
+import {requireAuthorization, setError, setUserData} from '../../store/user/user-selectors.ts';
+import {redirectToRoute} from '../../store/action.ts';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;

@@ -22,7 +22,7 @@ export default function AddReview(): React.JSX.Element {
   });
   const navigate = useNavigate();
 
-  const filmData = useAppSelector((state) => state.filmById);
+  const filmData = useAppSelector((state) => state.FILM.filmById);
   if(!filmData) {
     return <LoadingSpinner/>;
   }

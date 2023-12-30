@@ -10,11 +10,11 @@ import MyList from '../../pages/my-list/my-list.tsx';
 import HistoryRoute from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
 import MoviePage from '../../pages/movie-page/movie-page.tsx';
-
 import {useEffect} from 'react';
 import {checkAuthAction, fetchFilmPromo, fetchFilmsAction} from '../../services/api/api-actions.ts';
 import AddReview from '../../pages/add-review/add-review.tsx';
 import ScrollToTop from '../scroll-to-top/scroll-to-top.tsx';
+import Player from '../../pages/player/player.tsx';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -51,7 +51,7 @@ export default function App() {
             </PrivateRoutes>
           }
         />
-        {/*<Route path={AppRoutes.Player} element={<Player filmsData={films}/>} />*/}
+        <Route path={AppRoutes.Player} element={<Player />} />
         <Route path={AppRoutes.NotFound} element={<NotFound/>} />
       </Routes>
     </HistoryRoute>

@@ -18,7 +18,6 @@ export default function MainPage(): React.JSX.Element {
   const filmPromo = useAppSelector((state) => state.FILM.filmPromo);
   const sortedFilmsByGenre = useAppSelector((state) => state.FILMS.sortedFilmsByGenre);
   const genreName = useAppSelector((state) => state.FILMS.genre);
-  const favoriteFilms = useAppSelector((state) => state.FILMS.favoriteFilms);
 
   const handleGenreClick = (genre: string) => {
     dispatch(changeGenre({genre}));
@@ -63,18 +62,7 @@ export default function MainPage(): React.JSX.Element {
                 <span className="film-card__genre">{filmPromo.genre}</span>
                 <span className="film-card__year">{filmPromo.released}</span>
               </p>
-              <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 19" width={19} height={19}>
-                    <use xlinkHref="#play-s" />
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <BtnMyList filmId={filmPromo.id} isFavorite={filmPromo.isFavorite} amountFilms={favoriteFilms.length}/>
-              </div>
+              <BtnMyList filmId={filmPromo.id}>{null}</BtnMyList>
             </div>
           </div>
         </div>

@@ -3,26 +3,6 @@ export interface BreadcrumbsFilm {
   title: string;
 }
 
-export interface FilmInfo {
-  // id: string;
-  // title: string;
-  // genre: string;
-  // previewImage: string;
-  // previewVideoLink: string;
-  // year: string | number;
-  // posterImage: string;
-  // backgroundImage: string;
-  // backgroundColor?: string; 11
-  // videoLink: string;
-  description: string;
-  director: string;
-  starring: string[];
-  rating: number;
-  scoreCount: number;
-  runTime: number;
-  isFavorite: boolean;
-}
-
 export interface FilmPreview {
   id: string;
   name: string;

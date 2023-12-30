@@ -22,7 +22,6 @@ export default function MoviePage(): React.JSX.Element {
 
   const film = useAppSelector((state) => state.FILM.filmById);
   const comments = useAppSelector((state) => state.FILMS.commentsFilmById);
-  const favoriteFilms = useAppSelector((state) => state.FILMS.favoriteFilms);
   const similarFilms = useAppSelector((state) => state.FILMS.similarFilmById);
   const isAuth = useAppSelector((state) => state.USER.authorizationStatus);
 
@@ -62,14 +61,13 @@ export default function MoviePage(): React.JSX.Element {
                 <span className="film-card__genre">{film.genre}</span>
                 <span className="film-card__year">{film.released}</span>
               </p>
-              <div className="film-card__buttons">
-                <BtnMyList filmId={film.id} amountFilms={favoriteFilms.length} isFavorite={film.isFavorite}/>
+              <BtnMyList filmId={film.id}>
                 {
                   isAuth === AuthorizationStatus.Auth ? (
                     <Link to={AppRoutes.AddReview.replace(':id', film.id) } className="btn film-card__button">Add review</Link>
                   ) : null
                 }
-              </div>
+              </BtnMyList>
             </div>
           </div>
         </div>

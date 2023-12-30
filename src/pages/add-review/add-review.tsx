@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import Logo from '../../components/header/logo/logo';
 import Breadcrumbs from '../../components/header/breadcrumbs/breadcrumbs';
 import UserBlock from '../../components/header/user-block/user-block';
@@ -21,6 +21,7 @@ export default function AddReview(): React.JSX.Element {
     'reviewText': '',
   });
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const filmData = useAppSelector((state) => state.FILM.filmById);
   if(!filmData) {
@@ -33,18 +34,19 @@ export default function AddReview(): React.JSX.Element {
 
   const isSubmitDisabled = () => formData.rating === '' || formData.reviewText.length < REVIEW_TEXT_MIN_LENGTH || formData.reviewText.length > REVIEW_TEXT_MAX_LENGTH;
 
-  const handleSubmit = useCallback(
-    (event: React.FormEvent) => {
-      event.preventDefault();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
 
-      dispatch(
-        addReview({ filmId: filmData.id, rating: Number(formData.rating), comment: formData.reviewText })
-      ).then(() => {
-        navigate(`/film/${filmData.id}/${FilmsRoutes.Overview}`);
-      });
-    },
-    [dispatch, filmData.id, navigate, formData.rating, formData.reviewText]
-  );
+    setLoading(true);
+
+    dispatch(
+      addReview({ filmId: filmData.id, rating: Number(formData.rating), comment: formData.reviewText })
+    ).then(() => {
+      navigate(`/film/${filmData.id}/${FilmsRoutes.Overview}`);
+    }).finally(() => {
+      setLoading(false);
+    });
+  };
 
   return (
     <section className="film-card film-card--full">
@@ -104,8 +106,8 @@ export default function AddReview(): React.JSX.Element {
               onChange={(event) => onChangeHandler(event.target)}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit" disabled={isSubmitDisabled()}>
-                  Post
+              <button className="add-review__btn" type="submit" disabled={isSubmitDisabled() || loading}>
+                {loading ? 'Submit' : 'Post'}
               </button>
             </div>
           </div>

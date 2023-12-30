@@ -1,5 +1,5 @@
 import {FilmPreview} from '../types';
-import {RatingFilm} from '../enums/routes.ts';
+import {RatingFilm, Time} from '../enums/routes.ts';
 
 export function computeUniqueGenres(films: FilmPreview[], ALL_GENRES: string) {
   return [ALL_GENRES, ...new Set(films.map((film) => film.genre))];
@@ -33,3 +33,14 @@ export function formatFilmDuration(runTime: number) {
 export function getActiveClass(activeStr: string | undefined, prevStr: string, addClass: string) {
   return activeStr === prevStr ? addClass : '';
 }
+
+export const formatDuration = (duration: number): string => {
+  if (!duration) {
+    return '';
+  }
+  const hours = Math.floor(duration / Time.HourSeconds);
+  const minutes = Math.floor((duration - hours * Time.HourSeconds) / Time.MinuteSeconds);
+  const seconds = Math.floor(duration % Time.MinuteSeconds);
+
+  return hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}` ;
+};

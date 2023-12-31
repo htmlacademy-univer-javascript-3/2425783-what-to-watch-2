@@ -15,7 +15,7 @@ export default function ReviewsFilm({reviewsFilm}: ReviewsProps) {
               </p>
               <footer className="review__details">
                 <cite className="review__author">{reviews.user}</cite>
-                <time className="review__date" dateTime="2016-12-20">{reviews.date}</time>
+                <time className="review__date" dateTime={new Date(reviews.date).toISOString()}>{new Date(reviews.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</time>
               </footer>
             </blockquote>
             <div className="review__rating">{reviews.rating}</div>

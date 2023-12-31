@@ -12,7 +12,6 @@ import {
   setFavoriteFilms
 } from './films-selectors.ts';
 
-
 type InitialState = {
   genre: string;
   films: FilmPreview[];

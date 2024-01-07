@@ -1,88 +1,68 @@
-import React from 'react';
-import Card from '../../components/card/card.tsx';
+import React, {useState} from 'react';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
+import GenresList from '../../components/genres-list/genres-list.tsx';
+import FilmList from '../../components/film-list/film-list.tsx';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {changeGenre, getFilmsGenre} from '../../store/films/films-selectors.ts';
+import ShowMoreBtn from '../../components/show-more-btn/show-more-btn.tsx';
+import {MAX_CARD_FILM} from '../../const';
 
-type MainProps = {
-  filmName: string;
-  genre: string;
-  year: string | number;
-};
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
+import BtnMyList from '../../components/btn-my-list/btn-my-list.tsx';
 
-export default function MainPage({
-  filmName,
-  genre,
-  year,
-}: MainProps): React.JSX.Element {
+export default function MainPage(): React.JSX.Element {
+  const [filmsCount, setFilmsCount] = useState(MAX_CARD_FILM);
+  const dispatch = useAppDispatch();
+  const films = useAppSelector((state) => state.FILMS.films);
+  const filmPromo = useAppSelector((state) => state.FILM.filmPromo);
+  const sortedFilmsByGenre = useAppSelector((state) => state.FILMS.sortedFilmsByGenre);
+  const genreName = useAppSelector((state) => state.FILMS.genre);
+
+  const handleGenreClick = (genre: string) => {
+    dispatch(changeGenre({genre}));
+    dispatch(getFilmsGenre({genre}));
+    setFilmsCount(MAX_CARD_FILM);
+  };
+
+  const handleBtnFilmsClick = () => {
+    if(filmsCount < films.length) {
+      setFilmsCount((prevState) => prevState + MAX_CARD_FILM);
+    }
+  };
+
+  if(!filmPromo) {
+    return <LoadingSpinner/>;
+  }
+
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
-            alt="The Grand Budapest Hotel"
+            src={filmPromo.backgroundImage}
+            alt={filmPromo.name}
           />
         </div>
         <h1 className="visually-hidden">WTW</h1>
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width={63}
-                  height={63}
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header/>
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
+                src={filmPromo.posterImage}
+                alt={filmPromo.name}
                 width={218}
                 height={327}
               />
             </div>
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmName}</h2>
+              <h2 className="film-card__title">{filmPromo.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{year}</span>
+                <span className="film-card__genre">{filmPromo.genre}</span>
+                <span className="film-card__year">{filmPromo.released}</span>
               </p>
-              <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 19" width={19} height={19}>
-                    <use xlinkHref="#play-s" />
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
-              </div>
+              <BtnMyList filmId={filmPromo.id}>{null}</BtnMyList>
             </div>
           </div>
         </div>
@@ -90,81 +70,15 @@ export default function MainPage({
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">
-                All genres
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Comedies
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Crime
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Documentary
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Dramas
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Horror
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Kids &amp; Family
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Romance
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Sci-Fi
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">
-                Thrillers
-              </a>
-            </li>
-          </ul>
-          <div className="catalog__films-list">
-            {Array.from({ length: 20 }, (_, index) => (
-              <Card key={index} />
-            ))}
-          </div>
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          <GenresList genresFilm={films} activeGenre={genreName} onClick={handleGenreClick}/>
+          <FilmList filmsData={sortedFilmsByGenre} maxCards={filmsCount}/>
+          {
+            filmsCount < sortedFilmsByGenre.length && (
+              <ShowMoreBtn onBtnClick={handleBtnFilmsClick}/>
+            )
+          }
         </section>
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer></Footer>
       </div>
     </>
   );

@@ -23,7 +23,7 @@ export default function UserBlock() {
             <li className="user-block__item">
               <div className="user-block__avatar" onClick={handleClick}>
                 <img
-                  src={userData?.avatarUrl}
+                  src={userData.avatarUrl}
                   alt="User avatar"
                   width={63}
                   height={63}
@@ -35,13 +35,13 @@ export default function UserBlock() {
                 evt.preventDefault();
                 dispatch(logoutAction());
               }}
-              >Sign Out
+              >Sign out
               </Link>
             </li>
           </>
         ) : (
           <li className="user-block__item">
-            <Link to={AppRoutes.SignIn} className="user-block__link">Sign In</Link>
+            <Link to={AppRoutes.SignIn} className="user-block__link">Sign in</Link>
           </li>
         )
       }

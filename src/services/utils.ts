@@ -1,5 +1,6 @@
 import {FilmPreview} from '../types';
-import {RatingFilm, Time} from '../enums/routes.ts';
+import {RatingFilm} from '../enums/routes.ts';
+import moment from 'moment/moment';
 
 export function computeUniqueGenres(films: FilmPreview[], ALL_GENRES: string) {
   return [ALL_GENRES, ...new Set(films.map((film) => film.genre))];
@@ -27,20 +28,31 @@ export function getMoreLikeFilms(films: FilmPreview[], genre?: string, maxCards:
 }
 
 export function formatFilmDuration(runTime: number) {
-  return `${Math.trunc(runTime / 60)}:${runTime % 60}`;
+  return `${Math.trunc(runTime / 60)}h ${runTime % 60}m`;
 }
 
-export function getActiveClass(activeStr: string | undefined, prevStr: string, addClass: string) {
-  return activeStr === prevStr ? addClass : '';
+export function getActiveClass(idx: number | string, activeTab: number | string, activeClass: string) {
+  return activeTab === idx ? activeClass : '';
 }
 
-export const formatDuration = (duration: number): string => {
-  if (!duration) {
-    return '';
+export function videoTimeFormat(time: number) {
+  const hours = moment.duration(time, 'seconds').asHours();
+
+  if (hours < 1) {
+    return moment.utc(time * 1000).format('-mm:ss');
+  } else {
+    return moment.utc(time * 1000).format('-HH:mm:ss');
   }
-  const hours = Math.floor(duration / Time.HourSeconds);
-  const minutes = Math.floor((duration - hours * Time.HourSeconds) / Time.MinuteSeconds);
-  const seconds = Math.floor(duration % Time.MinuteSeconds);
+}
 
-  return hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}` ;
-};
+export function checkLogin(login: string) {
+  const regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+
+  return !!login.match(regexp);
+}
+
+export function checkPassword(password: string) {
+  const regex = new RegExp(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/);
+
+  return !!password.match(regex);
+}

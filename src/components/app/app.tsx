@@ -44,7 +44,7 @@ export default function App() {
           }
         />
         <Route path={AppRoutes.Film} element={<MoviePage/>} />
-        <Route path={AppRoutes.AddReview}
+        <Route path={AppRoutes.Review}
           element={
             <PrivateRoutes>
               <AddReview/>

@@ -3,6 +3,7 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/header/logo/logo';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../services/api/api-actions.ts';
+import {checkLogin, checkPassword} from '../../services/utils.ts';
 
 export default function SignIn(): React.JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -13,11 +14,16 @@ export default function SignIn(): React.JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current && passwordRef.current) {
-      dispatch(loginAction({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      }));
+    if (loginRef.current?.value && passwordRef.current?.value) {
+      const isLoginValid = checkLogin(loginRef.current.value);
+      const isPasswordValid = checkPassword(passwordRef.current.value);
+
+      if (isLoginValid && isPasswordValid) {
+        dispatch(loginAction({
+          login: loginRef.current.value,
+          password: passwordRef.current.value,
+        }));
+      }
     }
   };
 

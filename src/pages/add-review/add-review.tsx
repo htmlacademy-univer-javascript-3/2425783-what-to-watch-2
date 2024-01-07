@@ -1,51 +1,62 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Logo from '../../components/header/logo/logo';
 import Breadcrumbs from '../../components/header/breadcrumbs/breadcrumbs';
 import UserBlock from '../../components/header/user-block/user-block';
-import {FilmsRoutes} from '../../enums/routes.ts';
 import {REVIEW_TEXT_MAX_LENGTH, REVIEW_TEXT_MIN_LENGTH} from '../../const';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector, useFetchFilm} from '../../hooks';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
 import {addReview} from '../../services/api/api-actions.ts';
-import {useNavigate} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
-type FormData = {
-  name: string;
-  value: string;
-}
 
 export default function AddReview(): React.JSX.Element {
   const dispatch = useAppDispatch();
-  const [formData, setFormData] = useState({
-    'rating': '',
-    'reviewText': '',
-  });
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const {id = ''} = useParams();
+  useFetchFilm(id);
+  const [reviewText, setReviewText] = useState('');
+  const [rating, setRating] = useState(0);
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [readOnly, setReadOnly] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (
+      reviewText.length >= REVIEW_TEXT_MIN_LENGTH &&
+      reviewText.length <= REVIEW_TEXT_MAX_LENGTH &&
+      rating > 0
+    ) {
+      setBtnDisabled(false);
+    } else {
+      setBtnDisabled(true);
+    }
+  }, [rating, reviewText.length]);
+
+  useEffect(() => {
+    if (isLoading) {
+      setReadOnly(true);
+      setBtnDisabled(true);
+    } else {
+      setReadOnly(false);
+    }
+  }, [isLoading]);
 
   const filmData = useAppSelector((state) => state.FILM.filmById);
   if(!filmData) {
     return <LoadingSpinner/>;
   }
 
-  const onChangeHandler = ({name, value}: FormData) => {
-    setFormData({...formData, [name]: value});
-  };
-
-  const isSubmitDisabled = () => formData.rating === '' || formData.reviewText.length < REVIEW_TEXT_MIN_LENGTH || formData.reviewText.length > REVIEW_TEXT_MAX_LENGTH;
-
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    setLoading(true);
 
     dispatch(
-      addReview({ filmId: filmData.id, rating: Number(formData.rating), comment: formData.reviewText })
-    ).then(() => {
-      navigate(`/film/${filmData.id}/${FilmsRoutes.Overview}`);
-    }).finally(() => {
-      setLoading(false);
-    });
+      addReview({ filmId: filmData.id, rating: Number(rating), comment: reviewText })
+    );
+
+    setLoading(true);
+    setReviewText('');
+    setRating(0);
+
   };
 
   return (
@@ -86,7 +97,8 @@ export default function AddReview(): React.JSX.Element {
                         type="radio"
                         name="rating"
                         value={star}
-                        onChange={(event) => onChangeHandler(event.target)}
+                        onChange={(event) => setRating(Number(event.target.value))}
+                        disabled={readOnly}
                       />
                       <label className="rating__label" htmlFor={`star-${star}`}>
                         Rating {star}
@@ -103,11 +115,12 @@ export default function AddReview(): React.JSX.Element {
               id="reviewText"
               placeholder="Review text"
               defaultValue={''}
-              onChange={(event) => onChangeHandler(event.target)}
+              onChange={(event) => setReviewText(event.target.value)}
+              disabled={readOnly}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit" disabled={isSubmitDisabled() || loading}>
-                {loading ? 'Submit' : 'Post'}
+              <button className="add-review__btn" type="submit" disabled={btnDisabled}>
+                {isLoading ? 'Submit' : 'Post'}
               </button>
             </div>
           </div>

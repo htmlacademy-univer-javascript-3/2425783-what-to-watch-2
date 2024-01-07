@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import NotFound from '../not-found/not-found.tsx';
 import FilmList from '../../components/film-list/film-list.tsx';
-import {AppRoutes, AuthorizationStatus, FilmsRoutes} from '../../enums/routes.ts';
+import {AppRoutes, AuthorizationStatus} from '../../enums/routes.ts';
 import MoviePageDetails from './movie-page-details/movie-page-details.tsx';
 import MoviePageOverview from './movie-page-overview/movie-page-overview.tsx';
 import MoviePageReviews from './movie-page-reviews/movie-page-reviews.tsx';
 import {getActiveClass} from '../../services/utils.ts';
 import {useAppSelector, useFetchFilm} from '../../hooks';
-import {FILM_NAV_ITEM_ACTIVE} from '../../const';
+import {FILM_NAV_ITEM_ACTIVE, TABS} from '../../const';
 import BtnMyList from '../../components/btn-my-list/btn-my-list.tsx';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
 
@@ -18,8 +18,7 @@ export default function MoviePage(): React.JSX.Element {
   const {id = ''} = useParams();
 
   useFetchFilm(id);
-  const paramsFilm = useParams();
-
+  const [activeTab, setActiveTab] = useState(0);
   const film = useAppSelector((state) => state.FILM.filmById);
   const comments = useAppSelector((state) => state.FILMS.commentsFilmById);
   const similarFilms = useAppSelector((state) => state.FILMS.similarFilmById);
@@ -29,13 +28,13 @@ export default function MoviePage(): React.JSX.Element {
     return <LoadingSpinner/>;
   }
 
-  const renderTabs = (tabName: string | undefined): JSX.Element => {
-    switch(tabName) {
-      case FilmsRoutes.Overview:
+  const renderTabs = (tabNumber: number): JSX.Element => {
+    switch(tabNumber) {
+      case 0:
         return <MoviePageOverview film={film}/> ;
-      case FilmsRoutes.Details:
+      case 1:
         return <MoviePageDetails film={film}/>;
-      case FilmsRoutes.Reviews:
+      case 2:
         return <MoviePageReviews reviewsFilm={comments}/>;
       default:
         return <MoviePageOverview film={film}/>;
@@ -64,7 +63,7 @@ export default function MoviePage(): React.JSX.Element {
               <BtnMyList filmId={film.id}>
                 {
                   isAuth === AuthorizationStatus.Auth ? (
-                    <Link to={AppRoutes.AddReview.replace(':id', film.id) } className="btn film-card__button">Add review</Link>
+                    <Link to={AppRoutes.Review.replace(':id', film.id) } className="btn film-card__button">Add review</Link>
                   ) : null
                 }
               </BtnMyList>
@@ -84,18 +83,16 @@ export default function MoviePage(): React.JSX.Element {
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
-                  <li className={`film-nav__item ${getActiveClass(paramsFilm.info, FilmsRoutes.Overview, FILM_NAV_ITEM_ACTIVE)}`}>
-                    <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="film-nav__link">Overview</Link>
-                  </li>
-                  <li className={`film-nav__item ${getActiveClass(paramsFilm.info, FilmsRoutes.Details, FILM_NAV_ITEM_ACTIVE)}`}>
-                    <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Details)} className="film-nav__link">Details</Link>
-                  </li>
-                  <li className={`film-nav__item ${getActiveClass(paramsFilm.info, FilmsRoutes.Reviews, FILM_NAV_ITEM_ACTIVE)}`}>
-                    <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Reviews)} className="film-nav__link">Reviews</Link>
-                  </li>
+                  {TABS.map((tab, idx) => (
+                    <li className={`film-nav__item tab-hover ${getActiveClass(idx, activeTab, FILM_NAV_ITEM_ACTIVE)}`}
+                      key={tab}
+                    >
+                      <a className="film-nav__link" onClick={() => setActiveTab(idx)} >{tab}</a>
+                    </li>
+                  ))}
                 </ul>
               </nav>
-              {renderTabs(paramsFilm.info)}
+              {renderTabs(activeTab)}
             </div>
           </div>
         </div>

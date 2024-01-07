@@ -6,18 +6,18 @@ import {ALL_GENRES, GENRE_ACTIVE_CLASS} from '../../const';
 type GenresProps = {
   genresFilm: FilmPreview[];
   activeGenre: string;
-  clickHandler: (genre: string) => void;
+  onClick: (genre: string) => void;
 }
 
-export default function GenresList({genresFilm, activeGenre, clickHandler}: GenresProps) {
+export default function GenresList({genresFilm, activeGenre, onClick}: GenresProps) {
   return(
     <ul className="catalog__genres-list">
       {computeUniqueGenres(genresFilm, ALL_GENRES)
         .map((genre) => (
           <li
             key={genre}
-            className={`catalog__genres-item ${getActiveClass(activeGenre, genre, GENRE_ACTIVE_CLASS)}`}
-            onClick={() => clickHandler(genre)}
+            className={`catalog__genres-item ${getActiveClass(genre, activeGenre, GENRE_ACTIVE_CLASS)}`}
+            onClick={() => onClick(genre)}
           >
             <Link to="#" className="catalog__genres-link">{genre}</Link>
           </li>

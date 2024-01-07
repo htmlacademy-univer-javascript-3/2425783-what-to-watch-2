@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {FilmPreview} from '../../types';
 import VideoPlayer from '../video-player/video-player.tsx';
-import {AppRoutes, FilmsRoutes} from '../../enums/routes.ts';
+import {AppRoutes} from '../../enums/routes.ts';
 import {fetchFilmById, fetchCommentsFilmById, fetchSimilarFilmById} from '../../services/api/api-actions.ts';
 import {store} from '../../store';
 
@@ -42,13 +42,21 @@ const FilmCardComponent = ({film}: FilmCardProps): React.JSX.Element => {
     store.dispatch(fetchSimilarFilmById(film.id));
   };
 
+  const navigate = useNavigate();
+
+  const handleFilmCardClick = () => {
+    navigate(`/films/${film.id}`);
+  };
+
   return (
     <article
       onMouseOver={mouseOverHandler}
       onMouseOut={mouseOutHandler}
       className="small-film-card catalog__films-card"
     >
-      <div className="small-film-card__image">
+      <div className="small-film-card__image"
+        onClick={handleFilmCardClick}
+      >
         {
           video ? (<VideoPlayer videoLink={film.previewVideoLink} posterImage={film.previewImage}/>) : (<img src={film.previewImage} alt={film.name}/>)
         }
@@ -56,7 +64,7 @@ const FilmCardComponent = ({film}: FilmCardProps): React.JSX.Element => {
       {
         !video && (
           <h3 className="small-film-card__title">
-            <Link to={AppRoutes.Film.replace(':id', film.id).replace(':info', FilmsRoutes.Overview)} className="small-film-card__link" onClick={handleClick}>{film.name}</Link>
+            <Link to={AppRoutes.Film.replace(':id', film.id)} className="small-film-card__link" onClick={handleClick}>{film.name}</Link>
           </h3>
         )
       }

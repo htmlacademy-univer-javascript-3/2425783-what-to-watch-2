@@ -1,9 +1,7 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../../types';
-import {FilmDetails, FilmPreview, FilmPromo, ReviewFilm} from '../../types';
+import {AppDispatch, AuthData, FilmDetails, FilmPreview, FilmPromo, ReviewFilm, State, UserData} from '../../types';
 import {APIRoute, AppRoutes, AuthorizationStatus} from '../../enums/routes.ts';
-import {AuthData, UserData} from '../../types';
 import {dropToken, saveToken} from './token.ts';
 import {store} from '../../store';
 import {
@@ -110,7 +108,7 @@ export const addReview = createAsyncThunk<void, { filmId: string; rating: number
   'data/addReview',
   async ({filmId, comment, rating}, {dispatch, extra: api}) => {
     await api.post(`${APIRoute.Comments}/${filmId}`, {comment, rating});
-    dispatch(fetchFavoriteFilms());
+    dispatch(redirectToRoute(`/films/${filmId}`));
   },
 );
 
@@ -122,9 +120,13 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get<UserData>(APIRoute.Login);
+      const {data} = await api.get<UserData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
       dispatch(fetchFavoriteFilms());
+      dispatch(setUserData({
+        email: data.email,
+        avatarUrl: data.avatarUrl,
+        name: data.name}));
     } catch (error) {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }

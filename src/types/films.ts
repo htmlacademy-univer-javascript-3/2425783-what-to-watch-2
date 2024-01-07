@@ -25,7 +25,7 @@ export interface FilmDetails extends FilmPromo, FilmPreview {
   director: string;
   starring: string[];
   rating: number;
-  scoreCount: number;
+  scoresCount: number;
   runTime: number;
   isFavorite: boolean;
 }

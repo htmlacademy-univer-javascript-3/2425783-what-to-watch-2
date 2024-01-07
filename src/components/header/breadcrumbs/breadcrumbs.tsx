@@ -12,7 +12,7 @@ export default function Breadcrumbs({id, title}:BreadcrumbsFilm) {
           </Link>
         </li>
         <li className="breadcrumbs__item">
-          <Link to={AppRoutes.AddReview.replace(':id', id)} className="breadcrumbs__link">Add review</Link>
+          <Link to={AppRoutes.Review.replace(':id', id)} className="breadcrumbs__link">Add review</Link>
         </li>
       </ul>
     </nav>

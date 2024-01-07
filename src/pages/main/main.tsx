@@ -70,11 +70,11 @@ export default function MainPage(): React.JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList genresFilm={films} activeGenre={genreName} clickHandler={handleGenreClick}/>
+          <GenresList genresFilm={films} activeGenre={genreName} onClick={handleGenreClick}/>
           <FilmList filmsData={sortedFilmsByGenre} maxCards={filmsCount}/>
           {
             filmsCount < sortedFilmsByGenre.length && (
-              <ShowMoreBtn handleBtnClick={handleBtnFilmsClick}/>
+              <ShowMoreBtn onBtnClick={handleBtnFilmsClick}/>
             )
           }
         </section>

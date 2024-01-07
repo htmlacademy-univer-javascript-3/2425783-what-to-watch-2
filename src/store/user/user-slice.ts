@@ -5,13 +5,17 @@ import {requireAuthorization, setError, setUserData} from './user-selectors.ts';
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus;
-  userData: User | null;
+  userData: User;
   error: string | null;
 };
 
 const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userData: null,
+  userData: {
+    name: '',
+    avatarUrl: '',
+    email: '',
+  },
   error: null,
 };
 

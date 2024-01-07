@@ -1,12 +1,12 @@
 import React, {SyntheticEvent, useEffect, useRef, useState} from 'react';
 import {useAppSelector} from '../../hooks';
 import {FilmDetails} from '../../types';
-import {useLoadFilmPlayer} from '../../hooks/filmPlayer.ts';
+import {useLoadFilmPlayer} from '../../hooks/film-player.ts';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner.tsx';
 import {TIMEOUT_SEC} from '../../const';
 import {Link} from 'react-router-dom';
 import {AppRoutes} from '../../enums/routes.ts';
-import {formatDuration} from '../../services/utils.ts';
+import { videoTimeFormat} from '../../services/utils.ts';
 
 export default function Player(): React.JSX.Element {
   const film: FilmDetails | null = useAppSelector((state) => state.FILM.filmById);
@@ -75,7 +75,7 @@ export default function Player(): React.JSX.Element {
             <progress className="player__progress" value={progress} max={100}></progress>
             <div className="player__toggler" style={{ left: `${progress}%` }}>Toggler</div>
           </div>
-          <div className="player__time-value">{formatDuration(timeLeft)}</div>
+          <div className="player__time-value">{videoTimeFormat(timeLeft)}</div>
         </div>
         <div className="player__controls-row">
           <button type="button" className="player__play" onClick={handlePlayIconClick}>

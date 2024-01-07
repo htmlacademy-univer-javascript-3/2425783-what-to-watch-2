@@ -5,6 +5,6 @@ type VideoPlayerProps = {
 
 export default function VideoPlayer({videoLink, posterImage}: VideoPlayerProps) {
   return(
-    <video src={videoLink} poster={posterImage} autoPlay muted playsInline></video>
+    <video src={videoLink} poster={posterImage} muted loop></video>
   );
 }
